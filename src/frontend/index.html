@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Producer Platform - Studio Grade Music Production</title>
+    <meta name="description" content="DAW, mix-master veya autotune bilmeden sadece sesinizi kaydederek yapay zeka prodüktör ile profesyonel şarkılar üretin.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body class="dark-theme">
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+        <div class="logo-container">
+            <div class="logo-icon"><i data-lucide="disc-3"></i></div>
+            <div class="logo-text">
+                <span class="brand-name">AI PRODUCER</span>
+                <span class="brand-badge">STUDIO PRO v1.0</span>
+            </div>
+        </div>
+        <div class="header-status">
+            <div class="tier-pill">
+                <i data-lucide="crown" class="gold-icon"></i> PRO ARTIST (Aktif Abonelik)
+            </div>
+            <button class="upgrade-btn" onclick="openSubscriptionModal()">Paketleri İncele</button>
+        </div>
+    </header>
+
+    <main class="studio-container">
+        <!-- Left Side: Vocal Recording & Audio Analyzer -->
+        <section class="studio-panel left-panel">
+            <!-- Studio Audio Engine Visualizer -->
+            <div class="card visualizer-card">
+                <div class="card-header">
+                    <h3><i data-lucide="activity"></i> Canlı Ses & Spektrum Görselleştirici</h3>
+                    <span class="status-indicator online"><span class="dot"></span> 48kHz / 24-bit Studio Engine</span>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="audioCanvas"></canvas>
+                    <div class="visualizer-overlay" id="visualizerOverlay">
+                        <i data-lucide="mic"></i>
+                        <span>Mikrofon Kaydını Başlatmak İçin Aşağıdaki Butona Basın</span>
+                    </div>
+                </div>
+                <div class="recorder-controls">
+                    <button id="recordBtn" class="record-btn" onclick="toggleRecording()">
+                        <i data-lucide="mic" id="recordIcon"></i> <span id="recordText">Ses Kaydet</span>
+                    </button>
+                    <button id="playVocalBtn" class="secondary-btn" disabled onclick="playVocalPreview()">
+                        <i data-lucide="play"></i> Dinle
+                    </button>
+                </div>
+            </div>
+
+            <!-- AutoTune & Vocal Effect Control Board -->
+            <div class="card fx-card">
+                <div class="card-header">
+                    <h3><i data-lucide="sliders"></i> Vokal Efekt & Autotune Zinciri</h3>
+                </div>
+                <div class="fx-grid">
+                    <div class="control-group">
+                        <label>Autotune Karakteri:</label>
+                        <select id="autotunePreset" onchange="updateVocalFx()">
+                            <option value="travis">🔥 Travis Scott (Sert Retune & Formant Shifter)</option>
+                            <option value="natural" selected>✨ Doğal Stüdyo Düzeltme (Soft Pitch)</option>
+                            <option value="rage">⚡ Aggressive Rage Tune (0ms Retune Speed)</option>
+                            <option value="boombap">🎙️ Warm Analog Tape Saturation</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="slider-header">
+                            <span>Pitch Correction Hızı:</span>
+                            <span id="pitchSpeedVal">12ms</span>
+                        </div>
+                        <input type="range" id="pitchSpeed" min="0" max="50" value="12" oninput="document.getElementById('pitchSpeedVal').innerText = this.value + 'ms'">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="slider-header">
+                            <span>Stüdyo Reverb & Delay:</span>
+                            <span id="reverbVal">%45</span>
+                        </div>
+                        <input type="range" id="reverbAmount" min="0" max="100" value="45" oninput="document.getElementById('reverbVal').innerText = '%' + this.value">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reference Track Beat Analyzer -->
+            <div class="card reference-card">
+                <div class="card-header">
+                    <h3><i data-lucide="music"></i> Referans Beat & Akor Analizörü</h3>
+                </div>
+                <div class="upload-dropzone" id="dropzone" onclick="triggerFileInput()">
+                    <input type="file" id="referenceInput" accept="audio/*" style="display:none;" onchange="handleReferenceUpload(event)">
+                    <i data-lucide="upload-cloud" class="upload-icon"></i>
+                    <p>Referans Beat veya Şarkı Yükle / Sürükle Bırak</p>
+                    <span class="help-text">AI; BPM, Ton, Akor ve Davul ritmini otomatik extract eder.</span>
+                </div>
+                <div class="analysis-results" id="analysisResults" style="display: none;">
+                    <div class="metric-pill"><i data-lucide="clock"></i> BPM: <strong id="resBpm">140</strong></div>
+                    <div class="metric-pill"><i data-lucide="key"></i> Ton: <strong id="resKey">8A (Am)</strong></div>
+                    <div class="metric-pill"><i data-lucide="zap"></i> Enerji: <strong id="resEnergy">%92</strong></div>
+                    <div class="metric-pill"><i data-lucide="disc"></i> Akış: <strong id="resGroove">808 Heavy Bounce</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Side: Tabbed AI Producer & Action Center -->
+        <section class="studio-panel right-panel">
+            <div class="tab-header">
+                <button class="tab-btn active" onclick="switchTab('producer-tab')">
+                    <i data-lucide="bot"></i> AI Prodüktör Sohbeti
+                </button>
+                <button class="tab-btn highlight-tab" onclick="switchTab('viral-tab')">
+                    <i data-lucide="flame"></i> Yapay Zekaya Aksiyon Aldır (Viral Trends)
+                </button>
+                <button class="tab-btn" onclick="switchTab('mastering-tab')">
+                    <i data-lucide="layers"></i> Pro Miks & Master
+                </button>
+            </div>
+
+            <!-- TAB 1: AI Producer Dialogue -->
+            <div class="tab-content active" id="producer-tab">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message system-msg">
+                            <div class="msg-avatar"><i data-lucide="bot"></i></div>
+                            <div class="msg-content">
+                                <h4>Selam! Ben senin yapay zeka prodüktörünüm. 🎙️</h4>
+                                <p>FL Studio veya miks bilmene gerek yok! İstediğin beat tarzını anlat, referans şarkını yükle veya sesini kaydet. Parçanı dünya standartlarında stüdyo kalitesinde birlikte yapalım.</p>
+                                <div class="quick-prompts">
+                                    <button onclick="sendQuickPrompt('Bana Travis Scott tarzı koyu ve agresif bir Rage Trap beat yap')">🔥 Rage Trap Beat Yap</button>
+                                    <button onclick="sendQuickPrompt('Melodik Drill altyapısı istiyorum, derin 808 baslar olsun')">🎹 Melodik Drill Yap</button>
+                                    <button onclick="sendQuickPrompt('Boom bap tarzı nostaljik piyano altyapısı kurgula')">🎙️ Oldschool Boom Bap</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-wrapper">
+                        <input type="text" id="userInput" placeholder="Prodüktöre isteğini söyle (örn: Koyu bir synth bası olan 140 BPM Trap altyapısı yap...)" onkeypress="handleKeyPress(event)">
+                        <button class="send-btn" onclick="sendMessage()"><i data-lucide="send"></i> Gönder</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Viral Trend Recommendation Scanner (Yapay Zekaya Aksiyon Aldır) -->
+            <div class="tab-content" id="viral-tab">
+                <div class="viral-header-banner">
+                    <div class="banner-info">
+                        <h3><i data-lucide="sparkles"></i> Yapay Zekaya Aksiyon Aldır & Viral Trend Taraması</h3>
+                        <p>Yapay zeka tüm web'i (TikTok, Spotify Viral 50, YouTube Shorts) taradı. Vokal rengine ve tarzına en uygun 3 viral beat kopyasını hazırladı!</p>
+                    </div>
+                    <button class="scan-refresh-btn" onclick="loadViralTrends()"><i data-lucide="refresh-cw"></i> Trendleri Yeniden Tara</button>
+                </div>
+                <div class="viral-cards-grid" id="viralCardsGrid">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- TAB 3: Pro Mixing & Mastering Console -->
+            <div class="tab-content" id="mastering-tab">
+                <div class="mastering-container">
+                    <div class="mastering-banner">
+                        <h3><i data-lucide="check-circle-2"></i> Stüdyo Master Engine</h3>
+                        <p>Meta Demucs v4 (Stem Separation) + Matchering Spectral Alignment + 24-bit Studio Limiter</p>
+                    </div>
+                    <div class="stem-grid">
+                        <div class="stem-card">
+                            <i data-lucide="mic-2"></i>
+                            <h4>Vokal Stem (Isolated)</h4>
+                            <span class="badge green">Processed & Tuned</span>
+                        </div>
+                        <div class="stem-card">
+                            <i data-lucide="drum"></i>
+                            <h4>Drums & 808 Stem</h4>
+                            <span class="badge purple">Mastered (-9 LUFS)</span>
+                        </div>
+                        <div class="stem-card">
+                            <i data-lucide="piano"></i>
+                            <h4>Melody & Synths</h4>
+                            <span class="badge blue">Stereo Widened</span>
+                        </div>
+                        <div class="stem-card">
+                            <i data-lucide="sliders"></i>
+                            <h4>Full Mastered Stereo Mix</h4>
+                            <span class="badge gold">Ready for Streaming</span>
+                        </div>
+                    </div>
+                    <div class="export-actions">
+                        <button class="export-btn primary"><i data-lucide="download"></i> Full WAV Master İndir (24-bit)</button>
+                        <button class="export-btn secondary"><i data-lucide="archive"></i> Tüm Stem'leri ZIP Olarak İndir</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Subscription Modal -->
+    <div class="modal-overlay" id="subModal">
+        <div class="modal-card">
+            <button class="close-modal" onclick="closeSubscriptionModal()">&times;</button>
+            <div class="modal-header">
+                <i data-lucide="crown" class="gold-icon large"></i>
+                <h2>AI Producer SaaS Abonelik Paketleri</h2>
+                <p>Müzik prodüksiyonunu sınırsız hale getirin.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h4>Starter</h4>
+                    <div class="price">0 ₺<span>/ay</span></div>
+                    <ul>
+                        <li><i data-lucide="check"></i> 2 Beat Üretimi</li>
+                        <li><i data-lucide="check"></i> Standart Vokal Miksi</li>
+                        <li><i data-lucide="check"></i> MP3 Formatı</li>
+                    </ul>
+                    <button class="plan-btn disabled">Mevcut Plan</button>
+                </div>
+
+                <div class="price-card popular">
+                    <span class="popular-badge">EN ÇOK TERCİH EDİLEN</span>
+                    <h4>Pro Artist</h4>
+                    <div class="price">299 ₺<span>/ay</span></div>
+                    <ul>
+                        <li><i data-lucide="check"></i> Sınırsız AI Prodüktör Sohbeti</li>
+                        <li><i data-lucide="check"></i> Viral Trend Önerme & Aksiyon</li>
+                        <li><i data-lucide="check"></i> Travis Scott Autotune FX</li>
+                        <li><i data-lucide="check"></i> Stüdyo WAV İndirme</li>
+                    </ul>
+                    <button class="plan-btn primary">Aboneliği Başlat</button>
+                </div>
+
+                <div class="price-card">
+                    <h4>Studio Unlimited</h4>
+                    <div class="price">599 ₺<span>/ay</span></div>
+                    <ul>
+                        <li><i data-lucide="check"></i> Tüm Pro Artist Özellikleri</li>
+                        <li><i data-lucide="check"></i> Tüm Stem'leri (Isolated WAV) İndirme</li>
+                        <li><i data-lucide="check"></i> Özel Vokal Model Eğitimi (RVC)</li>
+                        <li><i data-lucide="check"></i> 7/24 VIP Destek</li>
+                    </ul>
+                    <button class="plan-btn secondary">Studio VIP Ol</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
