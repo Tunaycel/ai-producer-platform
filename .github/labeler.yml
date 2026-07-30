@@ -1,0 +1,37 @@
+# Labeler Configuration for GitHub Actions Auto-Labeler (v5 format)
+
+bug:
+  - changed-files:
+      - any-glob-to-any-file: 'fix/**'
+
+feature:
+  - changed-files:
+      - any-glob-to-any-file: 'feature/**'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'docs/**'
+          - '**/*.md'
+
+ci/cd:
+  - changed-files:
+      - any-glob-to-any-file: '.github/workflows/**'
+
+backend:
+  - changed-files:
+      - any-glob-to-any-file: 'src/backend/**'
+
+frontend:
+  - changed-files:
+      - any-glob-to-any-file: 'src/frontend/**'
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file: 'tests/**'
+
+security:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'SECURITY.md'
+          - '.github/workflows/security-audit.yml'

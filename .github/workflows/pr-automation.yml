@@ -1,0 +1,39 @@
+name: 🤖 PR Auto Labeler & Stale Issue Cleanup
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '0 0 * * *'  # Her gece 00:00'da stale kontrolü
+
+jobs:
+  auto-label:
+    name: 🏷️ Automatically Label Pull Requests
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/labeler@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  stale-issues:
+    name: 🧹 Mark & Close Stale Issues/PRs
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-message: "Bu issue 30 gündür hareketsiz, yakında kapatılacak."
+          stale-pr-message: "Bu PR 14 gündür güncellenmedi, yakında kapatılacak. Lütfen son durumu paylaş."
+          close-issue-message: "İnaktiflik nedeniyle kapatıldı. Gerekirse yeniden açabilirsin."
+          close-pr-message: "İnaktiflik nedeniyle kapatıldı."
+          days-before-issue-stale: 30
+          days-before-pr-stale: 14
+          days-before-issue-close: 7
+          days-before-pr-close: 7
+          exempt-issue-labels: 'pinned,security,critical'
+          exempt-pr-labels: 'pinned,security,hotfix'

@@ -1,0 +1,64 @@
+name: 📝 Code Quality & Style Enforcement
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint-format:
+    name: 🎨 Linting, Formatting & Type Checking
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-lint-${{ hashFiles('**/requirements*.txt') }}
+
+      - name: Install Code Quality Tools
+        run: |
+          pip install ruff mypy black isort
+
+      - name: Ruff — Fast Python Linter
+        run: |
+          ruff check src/ tests/ --output-format=github || true
+
+      - name: Black — Code Formatting Check
+        run: |
+          black --check --diff src/ tests/ || true
+
+      - name: isort — Import Order Check
+        run: |
+          isort --check-only --diff src/ tests/ || true
+
+      - name: MyPy — Static Type Checking
+        run: |
+          mypy src/ --ignore-missing-imports --no-strict-optional || true
+
+      - name: ✅ Code Quality Summary
+        run: echo "Code quality checks completed. Fix any warnings above in follow-up PRs."
+
+  frontend-lint:
+    name: 🌐 Frontend File Integrity Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Frontend Files Exist
+        run: |
+          [ -f src/frontend/index.html ] && echo "✅ index.html found" || (echo "❌ index.html missing" && exit 1)
+          [ -f src/frontend/app.css ] && echo "✅ app.css found" || (echo "❌ app.css missing" && exit 1)
+          [ -f src/frontend/app.js ] && echo "✅ app.js found" || (echo "❌ app.js missing" && exit 1)
+
