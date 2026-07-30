@@ -1,0 +1,29 @@
+# Labeler Configuration for GitHub Actions Auto-Labeler
+
+'bug':
+  - 'fix/**'
+  - '**/*.log'
+
+'feature':
+  - 'feature/**'
+
+'documentation':
+  - 'docs/**'
+  - '**/*.md'
+
+'ci/cd':
+  - '.github/workflows/**'
+  - ci/**
+
+'backend':
+  - 'src/backend/**'
+
+'frontend':
+  - 'src/frontend/**'
+
+'tests':
+  - 'tests/**'
+
+'security':
+  - 'SECURITY.md'
+  - '.github/workflows/security-audit.yml'
