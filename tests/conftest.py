@@ -36,3 +36,24 @@ def make_click_track(bpm: float, duration_s: float = 8.0, sr: int = 22050) -> by
 @pytest.fixture
 def click_track_120bpm() -> bytes:
     return make_click_track(bpm=120.0)
+
+
+def make_tone(
+    freq_hz: float = 220.0, duration_s: float = 3.0, sr: int = 22050, amplitude: float = 0.05
+) -> bytes:
+    """
+    Synthesizes a continuous quiet sine tone, encoded as WAV bytes. Unlike
+    the sparse click track (great for BPM detection, bad for loudness
+    metrics since silence dominates its RMS), this gives loudness/mastering
+    tests a signal where RMS-based measurements behave sensibly.
+    """
+    t = np.arange(int(duration_s * sr)) / sr
+    y = (amplitude * np.sin(2 * np.pi * freq_hz * t)).astype(np.float32)
+    buffer = io.BytesIO()
+    sf.write(buffer, y, sr, format="WAV")
+    return buffer.getvalue()
+
+
+@pytest.fixture
+def quiet_tone_audio() -> bytes:
+    return make_tone()
