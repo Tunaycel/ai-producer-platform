@@ -1,0 +1,160 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/outfit";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * AI Producer Platform — brand design tokens.
+ * Style: Glassmorphism-on-dark "studio engine" language (confirmed via
+ * ui-ux-pro-max --design-system: glassmorphism, dark-mode-first, full a11y
+ * support). Palette carried over 1:1 from the legacy src/frontend/app.css
+ * brand identity (purple/cyan/gold on near-black) rather than the tool's
+ * generic SaaS default, per explicit brand-preservation requirement.
+ */
+@theme inline {
+    --font-sans: "Inter Variable", sans-serif;
+    --font-heading: "Outfit Variable", sans-serif;
+
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+
+    /* Brand accent scale — used directly (bg-brand-purple, text-brand-gold, etc). */
+    --color-brand-purple: var(--brand-purple);
+    --color-brand-purple-strong: var(--brand-purple-strong);
+    --color-brand-cyan: var(--brand-cyan);
+    --color-brand-gold: var(--brand-gold);
+
+    --radius-sm: calc(var(--radius) * 0.5);
+    --radius-md: calc(var(--radius) * 0.75);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Dark is the only supported theme for the studio shell — applied via
+   `class="dark"` on <html> in index.html (see AGENT notes in App.tsx). */
+:root,
+.dark {
+    --background: #0a0b10;
+    --foreground: #f3f4f6;
+
+    --card: #12141fbf;
+    --card-foreground: #f3f4f6;
+
+    --popover: #14162280;
+    --popover-foreground: #f3f4f6;
+
+    --primary: #8b5cf6;
+    --primary-foreground: #ffffff;
+
+    --secondary: #171933;
+    --secondary-foreground: #f3f4f6;
+
+    --muted: #171933;
+    --muted-foreground: #9ca3af;
+
+    --accent: #8b5cf626;
+    --accent-foreground: #f3f4f6;
+
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+
+    --success: #10b981;
+    --success-foreground: #ffffff;
+
+    --border: #8b5cf633;
+    --input: #8b5cf633;
+    --ring: #8b5cf6;
+
+    --chart-1: #8b5cf6;
+    --chart-2: #06b6d4;
+    --chart-3: #f59e0b;
+    --chart-4: #10b981;
+    --chart-5: #ef4444;
+
+    --radius: 1rem;
+
+    --sidebar: #0e0f16;
+    --sidebar-foreground: #f3f4f6;
+    --sidebar-primary: #8b5cf6;
+    --sidebar-primary-foreground: #ffffff;
+    --sidebar-accent: #171933;
+    --sidebar-accent-foreground: #f3f4f6;
+    --sidebar-border: #8b5cf633;
+    --sidebar-ring: #8b5cf6;
+
+    --brand-purple: #8b5cf6;
+    --brand-purple-strong: #7c3aed;
+    --brand-cyan: #06b6d4;
+    --brand-gold: #f59e0b;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(at 10% 10%, color-mix(in oklab, var(--brand-purple) 12%, transparent) 0px, transparent 50%),
+      radial-gradient(at 90% 90%, color-mix(in oklab, var(--brand-cyan) 10%, transparent) 0px, transparent 50%);
+    background-attachment: fixed;
+    min-height: 100dvh;
+  }
+  html {
+    @apply font-sans;
+    color-scheme: dark;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer utilities {
+  /* Glassmorphic studio card: backdrop-blur + soft brand glow, the signature
+     surface treatment carried over from the legacy .card class. */
+  .glass-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+}
