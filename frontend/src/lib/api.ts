@@ -115,3 +115,55 @@ export async function postProducerChat(
 
   return (await response.json()) as ProducerChatResponse
 }
+
+/** Mirrors one item in ViralScannerService.get_viral_recommendations (src/backend/services/viral_scanner.py). */
+export interface ViralTrendRecommendation {
+  id: string
+  title: string
+  original_reference: string
+  viral_score: number
+  platform: string
+  bpm: number
+  key: string
+  style_match: string
+  description: string
+  vocal_recommendation: string
+  demo_audio_url: string
+}
+
+/** Mirrors the JSON body returned by GET /api/v1/trends/viral-beats. */
+export interface ViralTrendsResponse {
+  trends: ViralTrendRecommendation[]
+}
+
+/**
+ * GET /api/v1/trends/viral-beats?genre=<style>
+ * Throws ApiError on network failure or non-2xx response — callers decide
+ * how to surface that (see useViralTrends).
+ */
+export async function fetchViralTrends(genre: string, signal?: AbortSignal): Promise<ViralTrendsResponse> {
+  let response: Response
+  try {
+    response = await fetch(`${API_BASE_URL}/api/v1/trends/viral-beats?genre=${encodeURIComponent(genre)}`, {
+      signal,
+    })
+  } catch (cause) {
+    if (cause instanceof DOMException && cause.name === "AbortError") {
+      throw cause
+    }
+    throw new ApiError("Could not reach the AI Producer backend. Is it running?")
+  }
+
+  if (!response.ok) {
+    let detail: string | undefined
+    try {
+      const body = (await response.json()) as { detail?: string }
+      detail = body.detail
+    } catch (parseError) {
+      console.warn("Viral trends error response was not valid JSON.", parseError)
+    }
+    throw new ApiError(detail ?? `Viral trends request failed (HTTP ${response.status}).`, response.status)
+  }
+
+  return (await response.json()) as ViralTrendsResponse
+}

@@ -17,6 +17,10 @@ export interface AppStrings {
     statusOffline: string
     statusRetry: string
   }
+  nav: {
+    studioTab: string
+    trendsTab: string
+  }
   plans: {
     dialogTitle: string
     dialogSubtitle: string
@@ -90,5 +94,30 @@ export interface AppStrings {
     briefMastering: string
     userLabel: string
     producerLabel: string
+  }
+  viralTrends: {
+    cardTitle: string
+    cardSubtitle: string
+    channelLabel: string
+    genreLabel: string
+    genres: Array<{ id: string; label: string }>
+    loadingLabel: string
+    errorTitle: string
+    retry: string
+    emptyTitle: string
+    emptyHint: string
+    scoreLabel: string
+    scoreUnit: string
+    platformLabel: string
+    styleMatchLabel: string
+    bpmLabel: string
+    keyLabel: string
+    referenceLabel: string
+    vocalChainLabel: string
+    useThisBeat: string
+    rankPrefix: string
+    dialogTitle: string
+    dialogBody: string
+    dialogClose: string
   }
 }
