@@ -4,16 +4,23 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AudioVisualizer } from "@/components/studio/AudioVisualizer"
-import { useAudioRecorder } from "@/hooks/useAudioRecorder"
+import { ConsoleVUMeterLazy as ConsoleVUMeter } from "@/components/studio/ConsoleVUMeterLazy"
+import type { UseAudioRecorderResult } from "@/hooks/useAudioRecorder"
 import { formatDuration } from "@/lib/format"
 import type { AppStrings } from "@/i18n"
 
 interface VocalRecorderPanelProps {
   strings: AppStrings["recorder"]
+  /**
+   * Owned by App so the ProducerChatPanel can read whether a take exists
+   * (`recorder.state === "recorded"`) and pass that along as `has_vocal` on
+   * every producer chat request — a single source of truth for "does this
+   * artist have a vocal recorded" instead of two components guessing.
+   */
+  recorder: UseAudioRecorderResult
 }
 
-export function VocalRecorderPanel({ strings: t }: VocalRecorderPanelProps) {
-  const recorder = useAudioRecorder()
+export function VocalRecorderPanel({ strings: t, recorder }: VocalRecorderPanelProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
 
@@ -34,7 +41,7 @@ export function VocalRecorderPanel({ strings: t }: VocalRecorderPanelProps) {
   const isBusy = recorder.state === "requesting"
 
   return (
-    <Card className="glass-panel border-border py-5">
+    <Card className="console-panel console-rivets border-border py-5">
       <CardHeader>
         <div className="flex items-center justify-between gap-3">
           <CardTitle className="flex items-center gap-2 text-base">
@@ -44,6 +51,18 @@ export function VocalRecorderPanel({ strings: t }: VocalRecorderPanelProps) {
           <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_6px_var(--success)]" />
             {t.engineLabel}
+          </span>
+        </div>
+
+        <div className="mt-2 flex items-center gap-3 border-t border-border/60 pt-3">
+          <ConsoleVUMeter
+            analyser={recorder.state === "recording" ? recorder.analyser : null}
+            channels={2}
+            className="h-14 w-32 shrink-0"
+            label={recorder.state === "recording" ? t.inputLevelLive : t.inputLevelIdle}
+          />
+          <span className="readout-chip text-[10px] uppercase tracking-[0.15em] text-muted-foreground">
+            {t.inputLevelLabel}
           </span>
         </div>
       </CardHeader>

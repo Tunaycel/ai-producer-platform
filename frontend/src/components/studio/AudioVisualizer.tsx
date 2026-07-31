@@ -14,8 +14,9 @@ interface AudioVisualizerProps {
  * (signals "engine armed, no signal yet"); recording state reads real
  * frequency data off the AnalyserNode from useAudioRecorder — no synthetic
  * bars pretending to be audio. Frame chrome (scanline + corner brackets +
- * LIVE/IDLE tag) mirrors the "studio engine" aesthetic sourced from
- * 21st.dev's thegridcn/waveform component.
+ * LIVE/IDLE tag) mirrors the console/rack-unit metering aesthetic — the
+ * spectrum reads like an oscilloscope/RTA display, amber-to-green like a
+ * lit VU ladder, not a generic gradient bar chart.
  */
 export function AudioVisualizer({ analyser, liveLabel, idleLabel, className }: AudioVisualizerProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -59,8 +60,9 @@ export function AudioVisualizer({ analyser, liveLabel, idleLabel, className }: A
         for (let i = 0; i < barCount; i++) {
           const barHeight = (dataArray[i] / 255) * height
           const gradient = ctx.createLinearGradient(0, height, 0, 0)
-          gradient.addColorStop(0, "#8B5CF6")
-          gradient.addColorStop(1, "#06B6D4")
+          gradient.addColorStop(0, "#E2892B")
+          gradient.addColorStop(0.75, "#E2892B")
+          gradient.addColorStop(1, "#39E28D")
           ctx.fillStyle = gradient
           ctx.fillRect(x, height - barHeight, Math.max(barWidth - 2, 1), barHeight)
           x += barWidth
@@ -68,7 +70,7 @@ export function AudioVisualizer({ analyser, liveLabel, idleLabel, className }: A
       } else {
         ctx.beginPath()
         ctx.lineWidth = 2
-        ctx.strokeStyle = "rgba(139, 92, 246, 0.45)"
+        ctx.strokeStyle = "rgba(226, 137, 43, 0.45)"
         const midY = height / 2
         for (let x = 0; x < width; x++) {
           const y = midY + Math.sin(x * 0.02 + phaseRef.current) * 12 * Math.sin(x * 0.005)

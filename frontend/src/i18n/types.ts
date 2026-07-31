@@ -7,6 +7,7 @@ export interface AppStrings {
   brand: {
     name: string
     badge: string
+    vuMeterLabel: string
   }
   header: {
     tierPro: string
@@ -59,5 +60,35 @@ export interface AppStrings {
     retry: string
     recordedBadge: string
     durationLabel: string
+    inputLevelLabel: string
+    inputLevelLive: string
+    inputLevelIdle: string
+  }
+  producerChat: {
+    cardTitle: string
+    channelLabel: string
+    cardSubtitle: string
+    emptyTitle: string
+    emptyHint: string
+    suggestions: string[]
+    composerPlaceholder: string
+    composerLabel: string
+    sendLabel: string
+    thinking: string
+    errorTitleNetwork: string
+    errorTitleValidation: string
+    errorTitleServer: string
+    retry: string
+    briefTitle: string
+    briefGenre: string
+    briefBpm: string
+    briefKey: string
+    briefSubBass: string
+    briefHiHat: string
+    briefInstrumentation: string
+    briefVocalChain: string
+    briefMastering: string
+    userLabel: string
+    producerLabel: string
   }
 }

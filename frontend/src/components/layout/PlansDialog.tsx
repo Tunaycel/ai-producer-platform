@@ -29,7 +29,7 @@ export function PlansDialog({ open, onOpenChange, strings: t }: PlansDialogProps
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-3xl">
         <DialogHeader className="items-center text-center">
-          <Crown className="size-8 text-brand-gold" aria-hidden />
+          <Crown className="size-8 text-brand-brass" aria-hidden />
           <DialogTitle className="text-xl">{t.dialogTitle}</DialogTitle>
           <DialogDescription>{t.dialogSubtitle}</DialogDescription>
         </DialogHeader>
@@ -81,7 +81,7 @@ function PlanCard({ name, price, features, cta, badge, highlighted, ctaDisabled 
     <div
       className={cn(
         "relative flex flex-col gap-4 rounded-xl border p-5",
-        highlighted ? "border-primary bg-primary/5 shadow-[0_0_24px_-8px_var(--brand-purple)]" : "border-border bg-card/60",
+        highlighted ? "border-primary bg-primary/5 shadow-[0_0_24px_-8px_var(--brand-amber)]" : "border-border bg-card/60",
       )}
     >
       {badge && (
