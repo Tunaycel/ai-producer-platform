@@ -75,6 +75,8 @@ export const en: AppStrings = {
     inputLevelLabel: "Input Level",
     inputLevelLive: "Input level, live signal",
     inputLevelIdle: "Input level, standby",
+    signalChainLabel: "Signal Chain",
+    signalChainSteps: ["Capture", "Analyze", "Produce", "Master"],
   },
   producerChat: {
     cardTitle: "AI Producer Chat",
@@ -141,5 +143,139 @@ export const en: AppStrings = {
     dialogBody:
       "One-click production isn't wired up yet — this will hand the beat parameters straight to the DSP mastering pipeline (Demucs + Matchering + Pedalboard) once it ships. For now, bring this reference into the AI Producer Chat and describe it to the producer.",
     dialogClose: "Got it",
+  },
+  landing: {
+    nav: {
+      brandName: "AI PRODUCER",
+      brandBadge: "STUDIO PRO",
+      featuresLink: "Modules",
+      pricingLink: "Pricing",
+      enterStudio: "Enter Studio",
+    },
+    hero: {
+      eyebrow: "AI PRODUCER PLATFORM",
+      headline: "Your vocal. An AI producer.",
+      headlineAccent: "A finished record.",
+      subheadline:
+        "Record a take, describe the sound you're after in plain English, and get back a mixed, mastered track built on real DSP — not a filter. No DAW to learn, no EQ curves to fight, no plugin manuals.",
+      ctaPrimary: "Enter the Studio",
+      ctaSecondary: "See the modules",
+      proofPoints: [
+        "Real mastering chain — Pedalboard EQ, compression & limiting, not a loudness filter",
+        "Real BPM & key detection — librosa beat tracking + Krumhansl-Schmuckler chroma analysis",
+        "A producer you talk to — natural-language chat, not a dropdown of presets",
+      ],
+      visualLabel: "Animated studio console — VU meters and level indicators",
+      visualChips: ["PEDALBOARD DSP · LIVE", "AI PRODUCER CHAT · LIVE", "48kHz / 24-BIT ENGINE"],
+    },
+    featuresIntro: {
+      eyebrow: "THREE MODULES, ONE SESSION",
+      title: "Everything a mix engineer would do, minus the mix engineer",
+      subtitle:
+        "Every module below is a real, working surface in the app today — described honestly, including what's still shipping.",
+      tryPromptsLabel: "Try saying",
+    },
+    features: [
+      {
+        id: "producer",
+        kicker: "MODULE 01",
+        title: "AI Producer Chat & Vocal Studio",
+        description:
+          "Record or upload your vocal, then describe the beat you're hearing in your head — \"a dark 140 BPM trap beat with a Travis Scott-style synth bass\" — and the producer replies with a real production brief: genre, BPM, key, sub-bass type, hi-hat groove, instrumentation, and the vocal chain it recommends.",
+        status: "Live",
+        specs: [
+          { label: "Input", value: "Natural language, not presets" },
+          { label: "Output", value: "Full production brief (BPM/key/chain)" },
+          { label: "Vocal capture", value: "Browser mic, live spectrum readout" },
+        ],
+        preview: {
+          label: "Example producer reply",
+          message:
+            "\"Got it — dark 140 BPM trap, drop-tuned 808s, and a haunting bell lead. Locking your vocal into F#m with a tight slapback delay.\"",
+          tags: ["BPM 140", "KEY F#m", "CHAIN Autotune + Slapback"],
+        },
+      },
+      {
+        id: "trends",
+        kicker: "MODULE 02",
+        title: "Viral Trend Analyzer",
+        description:
+          "Scans what's actually charting on TikTok, Spotify's Viral 50, and YouTube Shorts, then scores 2-3 beat directions against your style — BPM, key, and a viral-fit score — so you're producing toward what's working, not guessing. Parametric analysis only: no waveform copying, ever.",
+        status: "Live",
+        specs: [
+          { label: "Sources", value: "TikTok, Spotify Viral 50, YouTube" },
+          { label: "Match logic", value: "Style, BPM & key scoring, 0-100" },
+          { label: "Policy", value: "Parametric only — never copies audio" },
+        ],
+      },
+      {
+        id: "mastering",
+        kicker: "MODULE 03",
+        title: "DSP Mastering Engine",
+        description:
+          "A genuine mastering chain — highpass, shelving and presence EQ into compression, makeup gain and limiting, via Pedalboard (Spotify's own audio-effects library). Stem separation (Demucs) and spectral reference matching (Matchering) are the next stage, so mastering will work per-stem against a reference track, not just the full mix.",
+        status: "Live, expanding",
+        specs: [
+          { label: "Live now", value: "EQ → compressor → limiter chain" },
+          { label: "Shipping next", value: "Demucs stems + Matchering reference match" },
+          { label: "Engine", value: "Pedalboard (C++ DSP, no toy plugins)" },
+        ],
+      },
+    ],
+    pipelineIntro: {
+      eyebrow: "HOW A SESSION FLOWS",
+      title: "From a raw take to a mastered record",
+      subtitle: "The same signal chain every session in the Studio tab runs.",
+    },
+    pipelineSteps: [
+      { label: "Capture", description: "Record your vocal straight in the browser, 48kHz/24-bit engine." },
+      { label: "Describe", description: "Tell the AI producer the sound, mood, or reference artist you want." },
+      { label: "Produce", description: "Get back BPM, key, instrumentation, and a recommended vocal chain." },
+      { label: "Master", description: "Real DSP mastering — EQ, compression, limiting — before anything plays back." },
+    ],
+    pricingIntro: {
+      eyebrow: "PLANS",
+      title: "Pick a plan, start producing",
+      subtitle: "The same three tiers you'll see in-app, so there's no surprise once you're inside the studio.",
+    },
+    finalCta: {
+      title: "Your next track doesn't need a studio booking.",
+      subtitle: "Record a take and talk to the producer — see what comes back.",
+      cta: "Enter the Studio",
+    },
+    footer: {
+      tagline:
+        "Professional rap and music production without needing to know a DAW, mixing & mastering, or autotune.",
+      columns: [
+        {
+          title: "Product",
+          links: [
+            { label: "AI Producer Chat", href: "#features" },
+            { label: "Viral Trend Analyzer", href: "#features" },
+            { label: "DSP Mastering Engine", href: "#features" },
+            { label: "Plans & Pricing", href: "#pricing" },
+          ],
+        },
+        {
+          title: "Engineering",
+          links: [
+            { label: "Built on Pedalboard, librosa", href: "#features" },
+            { label: "Demucs + Matchering (roadmap)", href: "#features" },
+            { label: "No verbatim audio copying", href: "#features" },
+          ],
+        },
+        {
+          title: "Company",
+          links: [
+            { label: "Engineering standards", href: "https://github.com" },
+            { label: "Security", href: "https://github.com" },
+            { label: "Contact", href: "mailto:hello@aiproducer.app" },
+          ],
+        },
+      ],
+      legalNote:
+        "Vocal takes are processed to produce your track and are never used to train shared models without explicit consent.",
+      copyright: "AI Producer Platform. Built for artists who don't have a mix engineer on speed dial.",
+    },
   },
 }
