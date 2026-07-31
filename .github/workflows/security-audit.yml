@@ -8,7 +8,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 3 * * 1'  # Her Pazartesi 03:00'da otomatik çalışır
+    - cron: '0 3 * * 1'  # Runs automatically every Monday at 03:00
 
 jobs:
   secret-scan:
@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          fetch-depth: 0  # Tüm commit geçmişi taranır
+          fetch-depth: 0  # Scan the full commit history
 
       - name: TruffleHog — Full Git History Secret Scan
         uses: trufflesecurity/trufflehog@main

@@ -1,35 +1,35 @@
-## 📋 PR Özeti
-<!-- Bu PR'ın amacını ve ne değiştirdiğini kısaca açıkla -->
+## 📋 PR Summary
+<!-- Briefly describe the purpose of this PR and what it changes -->
 
-Fixes # (issue numarası)
+Fixes # (issue number)
 
-## 🔄 Değişiklik Tipi
-- [ ] 🐛 Bug Fix (Hata Düzeltme)
-- [ ] ✨ New Feature (Yeni Özellik)
-- [ ] 🎨 Code Refactor (Yeniden Yapılandırma)
-- [ ] 📝 Documentation Update (Dokümantasyon)
-- [ ] 🔒 Security Fix (Güvenlik Düzeltme)
+## 🔄 Change Type
+- [ ] 🐛 Bug Fix
+- [ ] ✨ New Feature
+- [ ] 🎨 Code Refactor
+- [ ] 📝 Documentation Update
+- [ ] 🔒 Security Fix
 - [ ] 🚀 Performance Improvement
 - [ ] ⚙️ CI/CD Update
 
-## 🧪 Test Adımları
-<!-- Değişiklikleri nasıl test ettin? -->
+## 🧪 Test Steps
+<!-- How did you test these changes? -->
 
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
-## ✅ Yasaklar Listesi Kontrol Listesi (Merge Edilmeden Önce ZORUNLU)
+## ✅ RULES.md Checklist (MANDATORY before merge)
 
-- [ ] ❌ Ham / jenerik AI ses çıktısı kullanmadım (Kural 1)
-- [ ] ❌ `main` branch'e doğrudan commit atmadım (Kural 2)
-- [ ] ✅ GitHub Actions CI tüm adımları YEŞİL geçti (Kural 3)
-- [ ] ❌ Kod içinde hardcoded API key / secret yoktur (Kural 4)
-- [ ] ❌ Boş `try/except` veya test silme yapmadım (Kural 5)
-- [ ] ❌ Vokal verisi izinsiz saklanmıyor (Kural 6)
-- [ ] ❌ Telif ihlali barındıran ses kopyası yoktur (Kural 7)
-- [ ] ❌ Spagetti/monolitik kod yazmadım (Kural 8)
+- [ ] ❌ No raw/generic AI audio output used (Rule 1)
+- [ ] ❌ No direct commit to `main` (Rule 2)
+- [ ] ✅ All GitHub Actions CI steps passed GREEN (Rule 3)
+- [ ] ❌ No hardcoded API key / secret in code (Rule 4)
+- [ ] ❌ No empty `try/except` or deleted tests (Rule 5)
+- [ ] ❌ No unauthorized storage of vocal data (Rule 6)
+- [ ] ❌ No copyright-infringing audio copy (Rule 7)
+- [ ] ❌ No spaghetti/monolithic code (Rule 8)
 
-## 📸 Ekran Görüntüsü (UI Değişikliği Varsa)
+## 📸 Screenshot (if UI change)
 
-## 📌 Ek Notlar
+## 📌 Additional Notes

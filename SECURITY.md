@@ -1,33 +1,33 @@
-# Security Policy — Güvenlik Politikası
+# Security Policy
 
-## 🔒 Desteklenen Sürümler
+## 🔒 Supported Versions
 
-| Sürüm | Destek Durumu |
-| :---- | :------------ |
-| 1.x   | ✅ Aktif Destek |
-| < 1.0 | ❌ Destek Yok  |
+| Version | Supported |
+| :------ | :-------- |
+| 1.x     | ✅ Active support |
+| < 1.0   | ❌ Not supported |
 
-## 🚨 Güvenlik Açığı Bildirimi
+## 🚨 Reporting a Vulnerability
 
-**Lütfen güvenlik açıklarını ASLA public Issue olarak açmayın!**
+**Please never open a public Issue for a security vulnerability!**
 
-Bunun yerine şu adrese **gizli e-posta** gönderin:
+Instead, send a **private email** to:
 
 > **security@ai-producer.platform**
 
-E-postanızda şunları belirtin:
+Please include in your email:
 
-1. Açığın tipi (XSS, SQL Injection, veri sızıntısı vb.)
-2. Adım adım yeniden üretme talimatları
-3. Potansiyel etki ve sömürü senaryoları
-4. Varsa proof-of-concept kodu (responsibly)
+1. The type of vulnerability (XSS, SQL injection, data leak, etc.)
+2. Step-by-step reproduction instructions
+3. Potential impact and exploitation scenarios
+4. Proof-of-concept code, if available (responsibly)
 
-## ⏱️ Yanıt Süreci
+## ⏱️ Response Process
 
-| Aşama | Süre |
+| Stage | Time |
 | :---- | :--- |
-| İlk onay & triage | 48 saat |
-| Değerlendirme tamamlama | 7 gün |
-| Yama yayınlama (kritik) | 14 gün |
+| Initial acknowledgment & triage | 48 hours |
+| Assessment complete | 7 days |
+| Patch released (critical) | 14 days |
 
-Sorumlu açıklama yapan araştırmacıları **SECURITY.md** ve sürüm notlarında adları ile kredilendirilir.
+Researchers who practice responsible disclosure will be credited by name in **SECURITY.md** and the release notes.
