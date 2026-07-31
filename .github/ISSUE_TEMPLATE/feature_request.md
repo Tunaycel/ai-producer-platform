@@ -1,21 +1,21 @@
 ---
 name: ✨ Feature Request
-about: Platforma yeni bir özellik veya iyileştirme öner
+about: Suggest a new feature or improvement for the platform
 title: '[FEATURE] '
 labels: ['enhancement']
 assignees: ''
 ---
 
-## 🚀 Özellik Talebi
+## 🚀 Feature Request
 
-### Sorun / İhtiyaç
-<!-- Hangi problemi çözüyor? Kullanıcı açısından ne kazandırıyor? -->
+### Problem / Need
+<!-- What problem does this solve? What value does it add for the user? -->
 
-### Önerilen Çözüm
-<!-- Nasıl çalışmasını istiyorsun? -->
+### Proposed Solution
+<!-- How would you like it to work? -->
 
-### Alternatifler
-<!-- Başka çözümler düşündün mü? -->
+### Alternatives
+<!-- Have you considered other solutions? -->
 
-### Ek Bağlam
-<!-- Görseller, referans linkler, prototip vb. -->
+### Additional Context
+<!-- Screenshots, reference links, prototypes, etc. -->

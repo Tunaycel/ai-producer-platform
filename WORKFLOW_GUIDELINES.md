@@ -1,59 +1,59 @@
-# AI Producer Platform - Git & GitHub Actions İş Akışı Rehberi (Workflow Guidelines)
+# AI Producer Platform - Git & GitHub Actions Workflow Guidelines
 
-Bu doküman, projedeki kod geliştirme, branch yönetimi, Pull Request (PR) süreçleri ve GitHub Actions ile sürekli kod denetimi (Continuous Integration & Code Audit) standartlarını belirler.
-
----
-
-## 📌 1. Branch İsimlendirme Standartları
-
-Projede `main` branch'i doğrudan geliştirmeye kapalıdır. Yapılacak her işlem için aşağıdaki standartlara uygun yeni bir branch açılmalıdır:
-
-* **Yeni Özellikler (Features):** `feature/feature-name` (Örnek: `feature/vocal-autotune-pipeline`, `feature/viral-trend-scraper`)
-* **Hata Düzeltmeleri (Fixes):** `fix/bug-name` (Örnek: `fix/audio-stem-sync-delay`, `fix/beat-bpm-detection`)
-* **Dokümantasyon (Docs):** `docs/doc-name` (Örnek: `docs/api-specifications`)
-* **Refaktör & Performans:** `refactor/component-name` veya `perf/audio-processing`
-* **CI/CD İş Akışları:** `ci/workflow-name`
+This document defines the standards for code development, branch management, Pull Request (PR) processes, and continuous integration/code audit via GitHub Actions on this project.
 
 ---
 
-## 🔄 2. Adım Adım Geliştirme İş Akışı
+## 📌 1. Branch Naming Standards
 
-1. **Branch Oluşturma:**
+The `main` branch is closed to direct development. A new branch following the standards below must be created for every change:
+
+* **New features:** `feature/feature-name` (e.g. `feature/vocal-autotune-pipeline`, `feature/viral-trend-scraper`)
+* **Bug fixes:** `fix/bug-name` (e.g. `fix/audio-stem-sync-delay`, `fix/beat-bpm-detection`)
+* **Documentation:** `docs/doc-name` (e.g. `docs/api-specifications`)
+* **Refactor & performance:** `refactor/component-name` or `perf/audio-processing`
+* **CI/CD workflows:** `ci/workflow-name`
+
+---
+
+## 🔄 2. Step-by-Step Development Workflow
+
+1. **Create a branch:**
    ```bash
    git checkout main
    git pull origin main
-   git checkout -b feature/yeni-ozellik-adi
+   git checkout -b feature/new-feature-name
    ```
 
-2. **Değişikliklerin Yapılması ve Commit:**
-   Commit mesajları açık ve standart olmalıdır (Conventional Commits):
+2. **Make changes and commit:**
+   Commit messages must be clear and follow Conventional Commits:
    * `feat: add spectral matching mastering engine`
    * `fix: correct stem separation offset calculation`
    * `docs: update forbidden rules list`
 
-3. **Branch Push:**
+3. **Push the branch:**
    ```bash
-   git push origin feature/yeni-ozellik-adi
+   git push origin feature/new-feature-name
    ```
 
-4. **Pull Request (PR) Açma:**
-   * GitHub üzerinde `main` branch'ine doğru bir PR oluşturulur.
-   * PR şablonunda yapılan değişiklikler, test sonuçları ve kontrolden geçen maddeler açıklanır.
+4. **Open a Pull Request (PR):**
+   * Open a PR targeting `main` on GitHub.
+   * Describe the changes made, test results, and checked-off items in the PR template.
 
-5. **Otomatik GitHub Actions Denetimi:**
-   * PR açıldığı an GitHub Actions iş akışı (`code-audit.yml`) tetiklenir.
-   * Linter (ESLint / Flake8 / Ruff), Type Checker (TypeScript / MyPy), Security Audit ve Unit Testler çalışır.
+5. **Automatic GitHub Actions checks:**
+   * The moment a PR is opened, the GitHub Actions workflow (`code-audit.yml`) is triggered.
+   * Linter (Ruff), type checker (mypy), security audit, and unit tests all run.
 
-6. **Merge Şartı:**
-   * Tüm GitHub Actions adımları **YEŞİL (PASS)** olmadan ve kod incelemesi onaylanmadan PR `main` branch'ine merge edilemez!
+6. **Merge condition:**
+   * A PR may not be merged into `main` until every GitHub Actions step is **GREEN (PASS)** and the code review is approved!
 
 ---
 
-## ⚙️ 3. Sürekli Kod Denetimi (Code Audit Pipeline)
+## ⚙️ 3. Continuous Code Audit Pipeline
 
-GitHub Actions tarafında çalışacak kontroller:
+Checks that run on GitHub Actions:
 
-1. **Static Code Analysis & Linting:** Kod standartlarına ve temiz kod kurallarına uygunluk.
-2. **Security & Dependency Audit:** API key sızıntıları ve güvenlik zafiyeti barındıran paketlerin tespiti.
-3. **Audio Processing Unit Tests:** Audio işleme modüllerinin doğruluğu (BPM hesabı, frekans aralıkları, format dönüşümleri).
-4. **Forbidden Rules Compliance Check:** `yasaklar_listesi.md` kurallarına uygunluk doğrulaması.
+1. **Static code analysis & linting:** Compliance with code standards and clean-code rules.
+2. **Security & dependency audit:** Detects API key leaks and packages with known vulnerabilities.
+3. **Audio processing unit tests:** Correctness of audio processing modules (BPM calculation, frequency ranges, format conversions).
+4. **Forbidden Rules compliance check:** Verifies compliance with the rules in `RULES.md`.

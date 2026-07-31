@@ -46,11 +46,11 @@ jobs:
 
       - name: Verify Forbidden Rules File Exists
         run: |
-          if [ ! -f "yasaklar_listesi.md" ]; then
-            echo "ERROR: yasaklar_listesi.md file missing!"
+          if [ ! -f "RULES.md" ]; then
+            echo "ERROR: RULES.md file missing!"
             exit 1
           fi
-          echo "yasaklar_listesi.md verified."
+          echo "RULES.md verified."
 
       - name: Run Unit Tests
         run: |

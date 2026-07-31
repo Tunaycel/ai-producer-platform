@@ -1,51 +1,51 @@
-# 🎙️ AI Producer Platform - Yapay Zeka Destekli Stüdyo & Prodüktör Platformu
+# 🎙️ AI Producer Platform - AI-Powered Studio & Producer Platform
 
-> **"DAW (FL Studio/Ableton), Mix & Master ve Autotune Bilmeye Gerek Kalmadan Profesyonel Rap ve Müzik Prodüksiyonu"**
+> **"Professional Rap and Music Production Without Needing to Know a DAW (FL Studio/Ableton), Mixing & Mastering, or Autotune"**
 
-AI Producer Platform, müzik prodüksiyon bilgisi (DAW kullanımı, frekans düzenleme, autotune, miks/mastering) olmayan sanatçıların ve rapçilerin yalnızca seslerini kaydederek ve yapay zeka prodüktörle doğal dilde konuşarak stüdyo kalitesinde bitmiş parçalar üretmelerini sağlayan yeni nesil SaaS platformudur.
-
----
-
-## 🌟 Öne Çıkan Modüller
-
-### 1. 🎧 İnteraktif AI Prodüktör Sekmesi (AI Producer Chat & Vocal Studio)
-* **Doğal Dil İle İletişim:** "Bana Travis Scott tarzında, koyu/dark bir synth bası olan, 140 BPM trap beat yap" gibi talepleri anlar.
-* **Vokal Kayıt & İletim:** Kullanıcı vokalini kaydeder veya yükler.
-* **Referans Beat Analizi:** Kullanıcının beğendiği referans şarkı/beat'leri analiz eder; ton (key), akor dizilimi, BPM ve davul vuruşlarını extract eder ancak bağımsız/alakasız çıktılar üretmez.
-* **Akıllı Vokal İşleme:** RVC/Kits.ai ve ototon/pitch correction algoritmaları ile sanatçının vokalini mükemmel tona oturtur.
-
-### 2. 🔥 "Yapay Zekaya Aksiyon Aldır" / Viral Trend Analizörü (AI Action Tab)
-* **Trend Taraması:** Tüm web'i (TikTok, Spotify Viral 50, YouTube Shorts) sürekli tarayarak popüler ve viral olmuş beat/şarkı tarzlarını analiz eder.
-* **Akıllı Öneri Sistemi:** Kullanıcının ses rengine ve tarzına en uygun 2-3 adet viral ilhamlı beat kopyası/özgün yorumu önerir.
-* **Tek Tıkla Prodüksiyon:** Önerilen viral beat'lerden biri seçildiğinde AI otomatik olarak vokalle beat'i miksler.
-
-### 3. 🎚️ Üst Seviye Prodüktör Kalitesi & AI Fine-Tuning Pipeline
-* **Jenerik AI Gürültüsüne Son:** Suno veya MusicGen gibi modellerden çıkan raw sesler doğrudan kullanılmaz.
-* **Mastering Engine:** Demucs (stem separation) + Matchering (spektral referans miksi) + Pedalboard (EQ/compression/limiter) zinciriyle stüdyo mastering'i yapılır.
-* **Pro Producer Datasets:** En iyi prodüktörlerin miks zincirleri, EQ eğrileri ve stem yapısı yapay zekaya öğretilmiştir.
+AI Producer Platform is a next-generation SaaS platform that lets artists and rappers with no music production background (no DAW skills, EQ editing, autotune, or mixing/mastering knowledge) produce studio-quality finished tracks just by recording their vocals and talking to an AI producer in natural language.
 
 ---
 
-## 💰 Abonellik & Monetizasyon Modeli (SaaS)
+## 🌟 Flagship Modules
 
-| Paket | Özellikler | Hedef Kitle |
+### 1. 🎧 Interactive AI Producer Tab (AI Producer Chat & Vocal Studio)
+* **Natural Language Communication:** Understands requests like "Make me a dark 140 BPM trap beat with a Travis Scott-style synth bass."
+* **Vocal Recording & Upload:** The user records or uploads their vocal.
+* **Reference Beat Analysis:** Analyzes a reference song/beat the user likes — extracts key, chord progression, BPM, and drum pattern, without producing unrelated/generic output.
+* **Smart Vocal Processing:** Uses RVC/Kits.ai and autotune/pitch-correction algorithms to lock the artist's vocal into the perfect key.
+
+### 2. 🔥 "Put AI to Work" / Viral Trend Analyzer (AI Action Tab)
+* **Trend Scanning:** Continuously scans the web (TikTok, Spotify Viral 50, YouTube Shorts) to analyze popular and viral beat/song styles.
+* **Smart Recommendation System:** Suggests 2-3 viral-inspired beat variations/original interpretations best matched to the user's vocal tone and style.
+* **One-Click Production:** When a suggested viral beat is selected, the AI automatically mixes it with the user's vocal.
+
+### 3. 🎚️ Top-Tier Producer Quality & AI Fine-Tuning Pipeline
+* **No Generic AI Noise:** Raw output from models like Suno or MusicGen is never used directly.
+* **Mastering Engine:** Studio mastering via a Demucs (stem separation) + Matchering (spectral reference mixing) + Pedalboard (EQ/compression/limiter) chain.
+* **Pro Producer Datasets:** The AI is trained on the mix chains, EQ curves, and stem structures of top producers.
+
+---
+
+## 💰 Subscription & Monetization Model (SaaS)
+
+| Tier | Features | Target Audience |
 | :--- | :--- | :--- |
-| **Starter (Ücretsiz / Deneme)** | 2 Beat Üretimi, Standart Vokal Miksi, MP3 İndirme | Yeni Başlayanlar |
-| **Pro Artist (Aylık Abonelik)** | Sınırsız AI Prodüktör Sohbeti, Viral Trend Önerileri, Autotune + Stüdyo Miksi, WAV İndirme | Aktif Rapçiler & Sanatçılar |
-| **Studio Unlimited (Pro + Stems)** | Tüm İşlenmiş Stem'leri (Drums, Vocal, Bass, Melody Separated WAV) İndirme, Özel Vokal Eğitimi | Profesyonel Sanatçılar |
+| **Starter (Free / Trial)** | 2 beat generations, standard vocal mix, MP3 download | Newcomers |
+| **Pro Artist (Monthly subscription)** | Unlimited AI Producer chat, viral trend suggestions, autotune + studio mix, WAV download | Active rappers & artists |
+| **Studio Unlimited (Pro + Stems)** | Download all processed stems (drums, vocal, bass, melody as separated WAV), custom vocal training | Professional artists |
 
 ---
 
-## 🔒 Mühendislik Standartları ve Yasaklar
+## 🔒 Engineering Standards and Forbidden Rules
 
-Tüm geliştirme süreci [yasaklar_listesi.md](file:///C:/Users/Tunay/.gemini/antigravity-ide/scratch/ai-producer-platform/yasaklar_listesi.md) dokümanındaki 8 altın kurala tabidir:
-1. Kalitesiz ve jenerik AI çıktısı verilemez.
-2. `main` branch'ine doğrudan commit/push yapılamaz.
-3. PR ve GitHub Actions denetimi yeşil olmadan merge edilemez.
-4. Hardcoded secret / API key kullanılamaz.
-5. Hata yutulamaz ve testler silinemez.
-6. Vokal verileri izinsiz kullanılamaz.
-7. Telifli sesler birebir kopyalanamaz (yalnızca müzikal parametre analizi).
-8. Spagetti kod yazılamaz.
+The entire development process is governed by the 8 golden rules in [RULES.md](RULES.md):
+1. No low-quality or generic AI output.
+2. No direct commits/pushes to the `main` branch.
+3. No merging without a green PR and GitHub Actions check.
+4. No hardcoded secrets / API keys.
+5. No swallowing errors, no deleting tests.
+6. No unauthorized use of vocal data.
+7. No verbatim copying of copyrighted audio (parametric analysis only).
+8. No spaghetti code.
 
-Detaylı Git iş akışı için [WORKFLOW_GUIDELINES.md](file:///C:/Users/Tunay/.gemini/antigravity-ide/scratch/ai-producer-platform/WORKFLOW_GUIDELINES.md) dokümanını inceleyiniz.
+See [WORKFLOW_GUIDELINES.md](WORKFLOW_GUIDELINES.md) for the detailed Git workflow, and [ROADMAP.md](ROADMAP.md) for the current backlog.
