@@ -67,6 +67,8 @@ export interface AppStrings {
     inputLevelLabel: string
     inputLevelLive: string
     inputLevelIdle: string
+    signalChainLabel: string
+    signalChainSteps: string[]
   }
   producerChat: {
     cardTitle: string
@@ -120,6 +122,7 @@ export interface AppStrings {
     dialogBody: string
     dialogClose: string
   }
+  landing: LandingCopy
   mastering: {
     cardTitle: string
     channelLabel: string
@@ -158,5 +161,76 @@ export interface AppStrings {
     settingDeEsser: string
     stateOn: string
     stateOff: string
+  }
+}
+
+/**
+ * Copy for the marketing landing page shown before the app shell (App.tsx
+ * view switch). Kept as its own top-level namespace, same pattern as
+ * `producerChat`/`viralTrends`, so a future `tr.ts` locale implements it
+ * the same way as every other section.
+ */
+export interface LandingCopy {
+  nav: {
+    brandName: string
+    brandBadge: string
+    featuresLink: string
+    pricingLink: string
+    enterStudio: string
+  }
+  hero: {
+    eyebrow: string
+    headline: string
+    headlineAccent: string
+    subheadline: string
+    ctaPrimary: string
+    ctaSecondary: string
+    proofPoints: string[]
+    visualLabel: string
+    visualChips: string[]
+  }
+  featuresIntro: {
+    eyebrow: string
+    title: string
+    subtitle: string
+    tryPromptsLabel: string
+  }
+  features: LandingFeature[]
+  pipelineIntro: {
+    eyebrow: string
+    title: string
+    subtitle: string
+  }
+  pipelineSteps: Array<{ label: string; description: string }>
+  pricingIntro: {
+    eyebrow: string
+    title: string
+    subtitle: string
+  }
+  finalCta: {
+    title: string
+    subtitle: string
+    cta: string
+  }
+  footer: {
+    tagline: string
+    columns: Array<{ title: string; links: Array<{ label: string; href: string }> }>
+    legalNote: string
+    copyright: string
+  }
+}
+
+export interface LandingFeature {
+  id: string
+  kicker: string
+  title: string
+  description: string
+  status: string
+  specs: Array<{ label: string; value: string }>
+  /** Optional illustrative example of the module's output, clearly labeled as an example (not a real transcript/stat) — currently only used on the emphasized Producer Chat card. */
+  preview?: {
+    label: string
+    message: string
+    tags: string[]
   }
 }

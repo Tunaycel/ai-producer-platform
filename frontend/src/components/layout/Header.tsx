@@ -10,25 +10,37 @@ import type { AppStrings } from "@/i18n"
 
 interface HeaderProps {
   strings: AppStrings
+  /** Optional — when provided, the brand mark becomes a real button back to the landing page instead of a static label. */
+  onBrandClick?: () => void
 }
 
-export function Header({ strings: t }: HeaderProps) {
+export function Header({ strings: t, onBrandClick }: HeaderProps) {
   const health = useHealthCheck()
   const [plansOpen, setPlansOpen] = useState(false)
 
+  const brandMark = (
+    <>
+      <div className="relative flex size-11 shrink-0 items-center justify-center rounded-full border border-brand-amber/30 bg-[#221c12] shadow-[0_0_18px_-4px_var(--brand-amber)]">
+        <ConsoleVUMeter className="size-9" label={t.brand.vuMeterLabel} />
+      </div>
+      <div className="flex flex-col leading-tight">
+        <span className="font-heading text-lg font-bold tracking-wide bg-gradient-to-r from-white to-brand-amber bg-clip-text text-transparent">
+          {t.brand.name}
+        </span>
+        <span className="readout-chip text-[0.65rem] font-medium tracking-widest text-brand-green">{t.brand.badge}</span>
+      </div>
+    </>
+  )
+
   return (
     <header className="sticky top-0 z-40 flex h-[70px] items-center justify-between border-b border-border bg-background/90 px-4 backdrop-blur-md sm:px-8">
-      <div className="flex items-center gap-3">
-        <div className="relative flex size-11 shrink-0 items-center justify-center rounded-full border border-brand-amber/30 bg-[#221c12] shadow-[0_0_18px_-4px_var(--brand-amber)]">
-          <ConsoleVUMeter className="size-9" label={t.brand.vuMeterLabel} />
-        </div>
-        <div className="flex flex-col leading-tight">
-          <span className="font-heading text-lg font-bold tracking-wide bg-gradient-to-r from-white to-brand-amber bg-clip-text text-transparent">
-            {t.brand.name}
-          </span>
-          <span className="readout-chip text-[0.65rem] font-medium tracking-widest text-brand-green">{t.brand.badge}</span>
-        </div>
-      </div>
+      {onBrandClick ? (
+        <button type="button" onClick={onBrandClick} className="flex cursor-pointer items-center gap-3 text-left">
+          {brandMark}
+        </button>
+      ) : (
+        <div className="flex items-center gap-3">{brandMark}</div>
+      )}
 
       <div className="flex items-center gap-3">
         <HealthStatusPill strings={t.header} status={health.status} onRetry={health.refresh} />

@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Header } from "@/components/layout/Header"
@@ -5,8 +6,11 @@ import { VocalRecorderPanel } from "@/components/studio/VocalRecorderPanel"
 import { MasteringConsolePanel } from "@/components/studio/MasteringConsolePanel"
 import { ProducerChatPanel } from "@/components/producer/ProducerChatPanel"
 import { ViralTrendPanel } from "@/components/trends/ViralTrendPanel"
+import { LandingPage } from "@/components/landing/LandingPage"
 import { useAudioRecorder } from "@/hooks/useAudioRecorder"
 import { strings } from "@/i18n"
+
+type View = "landing" | "studio"
 
 /**
  * Frontend rebuild (ROADMAP.md) — header/nav, the AI Producer Chat panel
@@ -24,21 +28,36 @@ import { strings } from "@/i18n"
  * "Apply" dialog copy — one source of truth instead of multiple components
  * independently tracking whether a take exists.
  *
- * Two top-level views (Producer Studio / Viral Trend Analyzer) share the
- * same shell via Tabs rather than separate routes — no routing library is
- * in the project yet and a single-page studio doesn't need deep-linkable
+ * Two top-level studio views (Producer Studio / Viral Trend Analyzer) share
+ * the same shell via Tabs rather than separate routes — no routing library
+ * is in the project yet and a single-page studio doesn't need deep-linkable
  * URLs for two views. The mastering console lives inside the Studio tab
  * (not a third tab) since it's a direct extension of "prep this vocal take"
  * alongside the recorder, not an unrelated top-level destination.
+ *
+ * A third top-level view — the marketing landing page — sits in front of
+ * that shell behind a plain `useState<View>` switch, not a router: the
+ * product only ever has two reachable screens (landing, studio) and neither
+ * needs a deep-linkable URL yet, so a router would be pure overhead. If/when
+ * the studio itself grows real sub-routes, this is the seam to introduce one.
  */
 function App() {
   const recorder = useAudioRecorder()
   const hasVocal = recorder.state === "recorded"
+  const [view, setView] = useState<View>("landing")
+
+  if (view === "landing") {
+    return (
+      <TooltipProvider>
+        <LandingPage strings={strings} onEnterStudio={() => setView("studio")} />
+      </TooltipProvider>
+    )
+  }
 
   return (
     <TooltipProvider>
       <div className="flex min-h-dvh flex-col">
-        <Header strings={strings} />
+        <Header strings={strings} onBrandClick={() => setView("landing")} />
 
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-8">
           <Tabs defaultValue="studio">

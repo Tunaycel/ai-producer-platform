@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Activity, AlertTriangle, Loader2, Mic, Pause, Play, RotateCcw, Square } from "lucide-react"
+import { Activity, AlertTriangle, ArrowRight, Loader2, Mic, Pause, Play, RotateCcw, Square } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
@@ -7,6 +7,7 @@ import { AudioVisualizer } from "@/components/studio/AudioVisualizer"
 import { ConsoleVUMeterLazy as ConsoleVUMeter } from "@/components/studio/ConsoleVUMeterLazy"
 import type { UseAudioRecorderResult } from "@/hooks/useAudioRecorder"
 import { formatDuration } from "@/lib/format"
+import { cn } from "@/lib/utils"
 import type { AppStrings } from "@/i18n"
 
 interface VocalRecorderPanelProps {
@@ -144,7 +145,48 @@ export function VocalRecorderPanel({ strings: t, recorder }: VocalRecorderPanelP
             {t.recordedBadge} · {t.durationLabel} {formatDuration(recorder.elapsedSeconds)}
           </p>
         )}
+
+        <SignalChainStrip
+          label={t.signalChainLabel}
+          steps={t.signalChainSteps}
+          activeIndex={recorder.state === "recorded" ? 1 : 0}
+        />
       </CardContent>
     </Card>
+  )
+}
+
+/**
+ * A compact reminder of where this take is headed (Capture → Analyze →
+ * Produce → Master) rendered below the recorder controls at every state,
+ * idle included. Addresses the "feels empty before you record anything"
+ * feedback without inventing any data — it's real pipeline information
+ * (the same steps the AI Producer Chat + mastering engine actually run),
+ * just always visible instead of only appearing after a take exists.
+ */
+function SignalChainStrip({ label, steps, activeIndex }: { label: string; steps: string[]; activeIndex: number }) {
+  return (
+    <div className="flex flex-col gap-2 border-t border-border/60 pt-3">
+      <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
+      <ol className="flex flex-wrap items-center gap-1.5">
+        {steps.map((step, index) => (
+          <li key={step} className="flex items-center gap-1.5">
+            <span
+              className={cn(
+                "readout-chip rounded-full border px-2.5 py-1 text-[10px] font-medium tracking-wide transition-colors",
+                index <= activeIndex
+                  ? "border-brand-amber/50 bg-brand-amber/10 text-brand-amber"
+                  : "border-border bg-secondary/40 text-muted-foreground",
+              )}
+            >
+              {step}
+            </span>
+            {index < steps.length - 1 && (
+              <ArrowRight className="size-3 shrink-0 text-muted-foreground/40" aria-hidden />
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
   )
 }

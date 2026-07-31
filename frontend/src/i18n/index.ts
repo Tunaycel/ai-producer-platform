@@ -1,7 +1,7 @@
 import { en } from "./en"
 import type { AppStrings } from "./types"
 
-export type { AppStrings } from "./types"
+export type { AppStrings, LandingCopy, LandingFeature } from "./types"
 
 // Locale registry. Add `tr.ts` (implementing AppStrings) and register it
 // here when Turkish ships — no other call site needs to change since
