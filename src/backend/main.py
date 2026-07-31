@@ -13,6 +13,9 @@ from fastapi.staticfiles import StaticFiles
 # Ensure src module resolution
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from backend.db import Base, engine
+from backend.routers import auth as auth_router
+from backend.routers import library as library_router
 from backend.services.audio_analyzer import AudioAnalyzer
 from backend.services.mastering_engine import MasteringEngine
 from backend.services.producer_ai import ProducerAIService
@@ -23,6 +26,14 @@ app = FastAPI(
     description="Pro Level AI Music Producer & Vocal Mixing Platform for Artists",
     version="1.0.0",
 )
+
+# Dev/MVP schema management: create tables if they don't exist yet.
+# A real migration tool (Alembic) is the next step once the schema needs to
+# evolve under existing data -- tracked in ROADMAP.md, not silently deferred.
+Base.metadata.create_all(bind=engine)
+
+app.include_router(auth_router.router)
+app.include_router(library_router.router)
 
 # Enable CORS for frontend interactions
 app.add_middleware(

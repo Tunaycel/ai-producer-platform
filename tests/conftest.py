@@ -1,10 +1,24 @@
-"""Shared pytest fixtures for audio-related tests."""
+"""Shared pytest fixtures for audio- and API-related tests."""
 
 import io
+import os
+from pathlib import Path
 
 import numpy as np
 import pytest
 import soundfile as sf
+
+# Must run before any `backend.*` module is imported anywhere (including by
+# other test modules) -- config.Settings() reads these at import time and
+# JWT_SECRET_KEY has no default (RULES.md #4: no hardcoded secret, so it's
+# required, and it must come from *somewhere* for tests to run at all).
+# Tests get their own sqlite file, never the dev/prod database -- deleted
+# up front so re-runs start from a clean schema instead of accumulating
+# leftover users/productions across test sessions.
+_TEST_DB_PATH = Path(__file__).parent / "test_app.db"
+_TEST_DB_PATH.unlink(missing_ok=True)
+os.environ.setdefault("JWT_SECRET_KEY", "test-only-secret-do-not-use-in-prod")
+os.environ.setdefault("DATABASE_URL", f"sqlite:///{_TEST_DB_PATH}")
 
 
 def make_click_track(bpm: float, duration_s: float = 8.0, sr: int = 22050) -> bytes:
