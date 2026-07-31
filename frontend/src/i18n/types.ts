@@ -120,4 +120,43 @@ export interface AppStrings {
     dialogBody: string
     dialogClose: string
   }
+  mastering: {
+    cardTitle: string
+    channelLabel: string
+    cardSubtitle: string
+    presetLabel: string
+    presets: {
+      rage: { name: string; tagline: string }
+      darkTrap: { name: string; tagline: string }
+      melodicDrill: { name: string; tagline: string }
+      boomBap: { name: string; tagline: string }
+    }
+    knobRetuneSpeed: string
+    knobHumanize: string
+    knobFormant: string
+    knobReverb: string
+    knobHint: string
+    toggleHardTune: string
+    toggleHardTuneHint: string
+    toggleDeEsser: string
+    toggleDeEsserHint: string
+    applyButton: string
+    notLiveNotice: string
+    noVocalHint: string
+    dialogTitle: string
+    dialogBodyIntro: string
+    dialogBodyWithVocal: string
+    dialogBodyWithoutVocal: string
+    dialogSettingsTitle: string
+    dialogClose: string
+    settingPreset: string
+    settingRetune: string
+    settingHumanize: string
+    settingFormant: string
+    settingReverb: string
+    settingHardTune: string
+    settingDeEsser: string
+    stateOn: string
+    stateOff: string
+  }
 }
