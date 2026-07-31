@@ -1,32 +1,32 @@
 ---
 name: 🐛 Bug Report
-about: Platforma dair bir hata bildir
+about: Report a bug in the platform
 title: '[BUG] '
 labels: ['bug', 'triage']
 assignees: ''
 ---
 
-## 🐛 Hata Özeti
-<!-- Yaşanan hatayı kısa ve net biçimde açıkla -->
+## 🐛 Bug Summary
+<!-- Describe the bug clearly and concisely -->
 
-## 📋 Yeniden Üretme Adımları
-1. '...' sayfasına git
-2. '...' butonuna tıkla
-3. '...' eylemini gerçekleştir
-4. Hatayı gözlemle
+## 📋 Steps to Reproduce
+1. Go to '...'
+2. Click on '...'
+3. Perform '...'
+4. Observe the bug
 
-## ✅ Beklenen Davranış
-<!-- Ne olmasını bekliyordun? -->
+## ✅ Expected Behavior
+<!-- What did you expect to happen? -->
 
-## ❌ Gerçekleşen Davranış
-<!-- Ne oldu? Varsa hata mesajını yapıştır -->
+## ❌ Actual Behavior
+<!-- What actually happened? Paste any error message -->
 
-## 🖼️ Ekran Görüntüsü (Varsa)
+## 🖼️ Screenshot (if applicable)
 
-## 🖥️ Ortam Bilgileri
-- **OS:** [örn. Windows 11 / macOS Sonoma]
-- **Browser:** [örn. Chrome 126]
-- **Python:** [örn. 3.11.4]
+## 🖥️ Environment
+- **OS:** [e.g. Windows 11 / macOS Sonoma]
+- **Browser:** [e.g. Chrome 126]
+- **Python:** [e.g. 3.11.4]
 
-## 📎 Ek Bilgi
-<!-- Varsa ilgili log dosyaları veya ek bağlam -->
+## 📎 Additional Context
+<!-- Relevant log files or other context, if any -->

@@ -1,27 +1,27 @@
-# Code of Conduct — Davranış Kuralları
+# Code of Conduct
 
-## 📌 Taahhüdümüz
+## 📌 Our Pledge
 
-Bu projeye katkıda bulunan herkesin tacize, ayrımcılığa ve düşmanca davranışlara maruz kalmadan, kapsayıcı ve saygılı bir ortamda çalışabileceğini taahhüt ederiz.
+We pledge that everyone who contributes to this project can work in an inclusive, respectful environment, free from harassment, discrimination, and hostile behavior.
 
-## ✅ Kabul Edilen Davranışlar
+## ✅ Accepted Behavior
 
-- Kapsayıcı, yapıcı geri bildirim vermek
-- Farklı deneyim ve bakış açılarına saygı göstermek
-- Hataları kabullenmek ve özür dilemek
-- Topluluk yararını bireysel çıkarların önünde tutmak
+- Giving inclusive, constructive feedback
+- Respecting different experiences and viewpoints
+- Owning mistakes and apologizing
+- Prioritizing the community's interest over individual gain
 
-## ❌ Kabul Edilmeyen Davranışlar
+## ❌ Unacceptable Behavior
 
-- Taciz, aşağılama veya saldırgan dil
-- Kişisel ya da siyasi saldırılar
-- Gizli bilgilerin izinsiz paylaşılması
-- Diğer katılımcılara karşı profesyonellikten uzak her türlü davranış
+- Harassment, insults, or offensive language
+- Personal or political attacks
+- Sharing private information without consent
+- Any other conduct that would reasonably be considered unprofessional toward other participants
 
-## 🚨 Uygulama
+## 🚨 Enforcement
 
-İhlaller şu adrese bildirilebilir: **conduct@ai-producer.platform**
+Violations can be reported to: **conduct@ai-producer.platform**
 
-Proje sorumluları tüm bildirimleri gizlilik içinde inceleyecek ve uygun eylemi alacaktır.
+Project maintainers will review all reports confidentially and take appropriate action.
 
-Bu Davranış Kuralları, [Contributor Covenant v2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) temel alınarak oluşturulmuştur.
+This Code of Conduct is adapted from [Contributor Covenant v2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).

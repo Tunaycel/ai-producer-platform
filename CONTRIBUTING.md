@@ -1,67 +1,67 @@
-# 🤝 Contributing Guide — Katkı Rehberi
+# 🤝 Contributing Guide
 
-AI Producer Platform'a katkıda bulunmak istemen harika! Bu rehber süreci anlaşılır kılmak için hazırlanmıştır.
+Thanks for wanting to contribute to AI Producer Platform! This guide exists to make the process clear.
 
-## 🚦 Başlamadan Önce
+## 🚦 Before You Start
 
-1. Mevcut **Issue**'ları kontrol et — belki birisi zaten aynı konuyu açmıştır.
-2. Büyük değişiklikler için önce bir **Issue** aç ve tartışın.
-3. Repoyu **Fork** et ve kendi branch'inden çalış.
+1. Check existing **Issues** — someone may have already opened the same one.
+2. For large changes, open an **Issue** first and discuss it.
+3. **Fork** the repo and work from your own branch.
 
-## 🌿 Branch Stratejisi
-
-```
-feature/  → Yeni özellikler
-fix/      → Hata düzeltmeleri
-docs/     → Dokümantasyon güncellemeleri
-refactor/ → Kod yeniden düzenleme
-perf/     → Performans iyileştirme
-ci/       → CI/CD değişiklikleri
-```
-
-## 📝 Commit Mesaj Standartları (Conventional Commits)
+## 🌿 Branch Strategy
 
 ```
-feat:     Yeni özellik
-fix:      Hata düzeltme
-docs:     Dokümantasyon değişikliği
-style:    Kod stili (beyaz boşluk, biçim, noktalı virgül eksik vb.)
-refactor: Hata düzeltme veya özellik ekleme olmayan yeniden yapılandırma
-perf:     Performans iyileştirme
-test:     Eksik test ekleme veya mevcut testleri düzeltme
-chore:    Derleme süreci veya yardımcı araçlara değişiklikler
+feature/  → New features
+fix/      → Bug fixes
+docs/     → Documentation updates
+refactor/ → Code refactoring
+perf/     → Performance improvements
+ci/       → CI/CD changes
 ```
 
-## 🔁 PR Süreci
+## 📝 Commit Message Standards (Conventional Commits)
 
-1. `main` üzerinden güncel bir branch oluştur.
-2. Değişikliklerini yap.
-3. Tüm testlerin geçtiğinden emin ol: `pytest tests/ -v`
-4. PR aç — PR şablonunu eksiksiz doldur.
-5. CI/CD badge'leri yeşil olana kadar bekle.
-6. En az **1 reviewer onayı** al.
-7. `main`'e squash merge yap.
+```
+feat:     New feature
+fix:      Bug fix
+docs:     Documentation change
+style:    Code style (whitespace, formatting, missing semicolons, etc.)
+refactor: A change that is neither a bug fix nor a feature
+perf:     Performance improvement
+test:     Adding missing tests or correcting existing tests
+chore:    Changes to the build process or auxiliary tools
+```
 
-## 🧪 Testleri Çalıştırma
+## 🔁 PR Process
+
+1. Create a branch from an up-to-date `main`.
+2. Make your changes.
+3. Make sure all tests pass: `pytest tests/ -v`
+4. Open a PR — fill out the PR template completely.
+5. Wait until all CI/CD checks are green.
+6. Get at least **1 reviewer approval**.
+7. Squash-merge into `main`.
+
+## 🧪 Running Tests
 
 ```bash
-# Tüm testler
+# All tests
 pytest tests/ -v
 
-# Coverage raporu ile
+# With a coverage report
 pytest tests/ --cov=src --cov-report=term-missing
 
-# Sadece belirli bir dosya
+# A single file
 pytest tests/test_audio_engine.py -v
 ```
 
-## 📦 Bağımlılık Kurulumu
+## 📦 Installing Dependencies
 
 ```bash
 pip install -r requirements.txt
-pip install -r requirements-dev.txt  # Geliştirme araçları
+pip install -r requirements-dev.txt  # dev tools
 ```
 
-## ❓ Yardım mı Lazım?
+## ❓ Need Help?
 
-Issues bölümüne yaz veya Discussions'ı kullan.
+Post in Issues or use Discussions.
