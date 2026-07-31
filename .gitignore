@@ -21,3 +21,6 @@ Thumbs.db
 *.mp3
 !examples/*.mp3
 temp_stems/
+
+# Claude Code local state (session/agent files stay machine-local, not shared via git)
+.claude/
