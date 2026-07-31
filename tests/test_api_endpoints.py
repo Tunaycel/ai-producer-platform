@@ -1,10 +1,11 @@
 """
 Integration Tests for FastAPI Backend Endpoints
 """
-import pytest
-from fastapi.testclient import TestClient
-import sys
+
 import os
+import sys
+
+from fastapi.testclient import TestClient
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from src.backend.main import app
@@ -50,6 +51,21 @@ def test_producer_chat_with_reference():
 def test_producer_chat_empty_message():
     payload = {"message": ""}
     response = client.post("/api/v1/producer/chat", json=payload)
+    assert response.status_code == 400
+
+
+def test_analyze_reference_endpoint(click_track_120bpm):
+    files = {"file": ("synthetic_120bpm.wav", click_track_120bpm, "audio/wav")}
+    response = client.post("/api/v1/audio/analyze-reference", files=files)
+    assert response.status_code == 200
+    data = response.json()
+    assert "bpm" in data
+    assert "key" in data
+
+
+def test_analyze_reference_endpoint_rejects_invalid_audio():
+    files = {"file": ("not_audio.txt", b"definitely not audio", "text/plain")}
+    response = client.post("/api/v1/audio/analyze-reference", files=files)
     assert response.status_code == 400
 
 
