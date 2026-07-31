@@ -15,7 +15,7 @@ jobs:
     name: 📦 Semantic Release — Auto Version & Changelog
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -26,7 +26,7 @@ jobs:
 
       - name: Install semantic-release
         run: |
-          npm install --save-dev semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/github
+          npm install --save-dev semantic-release @semantic-release/github
 
       - name: Run Semantic Release
         env:
