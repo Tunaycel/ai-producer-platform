@@ -4,7 +4,13 @@ Working backlog for AI Producer Platform, sequenced by dependency order. Each it
 
 ## In progress
 
-- [ ] **Frontend rebuild** — migrate `src/frontend/` (vanilla HTML/CSS/JS) to React + Vite + TypeScript + Tailwind + shadcn/ui, built with the `frontend-developer` agent (`ui-ux-pro-max` skill + 21st.dev component sourcing). UI copy in English by default, i18n-ready structure so Turkish can be added as a locale later.
+- [x] **Frontend rebuild — visual identity, Chat, Viral Trends** — `frontend/` (Vite + React + TypeScript + Tailwind + shadcn/ui) now has an established "Console" (analog studio hardware) identity, the AI Producer Chat panel, and the Viral Trend Analyzer panel, all wired to real backend endpoints.
+- [ ] **Frontend rebuild — Autotune/Mastering control panel** — in progress; honest about the DSP pipeline not being live yet (see below), tactile knob/slider controls in the established identity.
+
+## Recently shipped — what we used and why
+
+- **Real audio analysis** (`audio_analyzer.py`): replaced filename-hash fake output with `librosa` — real BPM via beat tracking, real key/scale via Krumhansl-Schmuckler chroma correlation, real spectral-balance via STFT. *Why librosa:* the standard, well-tested Python audio-analysis library; no need for a heavier ML model for tempo/key extraction.
+- **Real mastering DSP** (`mastering_engine.py`, `POST /api/v1/audio/master`): a genuine EQ (highpass + shelving + presence peak) → compressor → makeup gain → limiter chain via **Pedalboard** (Spotify's audio-effects library). *Why Pedalboard over hand-rolled DSP:* battle-tested, fast (C++ under the hood), and exactly the tool RULES.md's mastering requirement was written around. This is stage one of item 2 below — stem separation (Demucs) and spectral reference matching (Matchering) are not yet integrated, so this chain masters the full mix, not per-stem.
 
 ## Technical differentiators (from competitive research, 2026-07-31)
 
@@ -23,8 +29,8 @@ Ranked by expected impact:
 
 ## Next up
 
-1. **Vocal capture + analysis polish** — harden `audio_analyzer.py` (BPM/key detection accuracy, sample-rate handling, error paths), backed by real test coverage in `tests/test_audio_engine.py`.
-2. **Mastering / DSP pipeline** — wire `producer_ai.py`'s beat-parameter output into an actual DSP chain: Demucs (stem separation, consider BS-RoFormer ensemble per differentiator #2) → EQ/compression (Pedalboard) → spectral reference matching (Matchering, consider Diff-MST-style multitrack mixing per differentiator #3). Replace the current rule-based genre presets with real signal processing. Target: platform-aware loudness (differentiator #4), no raw/unprocessed AI audio reaches the user (RULES.md rule 1).
+1. ~~Vocal capture + analysis polish~~ — done, see "Recently shipped" above.
+2. **Mastering / DSP pipeline, stage two** — add Demucs stem separation (consider BS-RoFormer ensemble per differentiator #2) ahead of the now-real Pedalboard EQ/compression/limiting chain, and Matchering spectral reference matching (consider Diff-MST-style multitrack mixing per differentiator #3) so mastering can work per-stem against a reference track, not just on the full mix. Target: platform-aware loudness (differentiator #4).
 3. **Vocal chain (autotune/pitch correction)** — integrate RVC or Kits.ai for the "recommended_vocal_chain" the producer service already proposes but doesn't yet execute; prioritize hybrid F0 detection and adaptive retrieval ratio (differentiators #1, #6).
 4. **Viral Trend Scanner** — replace the hardcoded `viral_scanner.py` recommendations with real trend ingestion (TikTok / Spotify Viral 50 / YouTube), respecting rule 7 (parametric analysis only, no waveform copying).
 5. **i18n** — add Turkish as a second UI locale once the English-first React frontend is stable.

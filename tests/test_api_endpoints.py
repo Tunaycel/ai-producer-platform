@@ -69,6 +69,29 @@ def test_analyze_reference_endpoint_rejects_invalid_audio():
     assert response.status_code == 400
 
 
+def test_master_audio_endpoint(click_track_120bpm):
+    files = {"file": ("synthetic_120bpm.wav", click_track_120bpm, "audio/wav")}
+    response = client.post("/api/v1/audio/master", files=files)
+    assert response.status_code == 200
+    assert response.headers["content-type"] == "audio/wav"
+    assert response.content != click_track_120bpm
+    assert "X-Loudness-Before-Dbfs" in response.headers
+    assert "X-Mastering-Chain" in response.headers
+
+
+def test_master_audio_endpoint_accepts_target_lufs(click_track_120bpm):
+    files = {"file": ("synthetic_120bpm.wav", click_track_120bpm, "audio/wav")}
+    response = client.post("/api/v1/audio/master?target_lufs=-14", files=files)
+    assert response.status_code == 200
+    assert response.headers["X-Target-Lufs"] == "-14.0"
+
+
+def test_master_audio_endpoint_rejects_invalid_audio():
+    files = {"file": ("not_audio.txt", b"definitely not audio", "text/plain")}
+    response = client.post("/api/v1/audio/master", files=files)
+    assert response.status_code == 400
+
+
 def test_viral_trends_endpoint():
     response = client.get("/api/v1/trends/viral-beats")
     assert response.status_code == 200

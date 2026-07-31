@@ -5,15 +5,16 @@ AI Producer Platform Main Backend (FastAPI / HTTP Server)
 import os
 import sys
 
-from fastapi import FastAPI, File, HTTPException, UploadFile
+from fastapi import FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 # Ensure src module resolution
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from backend.services.audio_analyzer import AudioAnalyzer
+from backend.services.mastering_engine import MasteringEngine
 from backend.services.producer_ai import ProducerAIService
 from backend.services.viral_scanner import ViralScannerService
 
@@ -77,6 +78,34 @@ async def analyze_reference(file: UploadFile = File(...)):
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     return JSONResponse(content=analysis)
+
+
+@app.post("/api/v1/audio/master")
+async def master_audio(
+    file: UploadFile = File(...),
+    target_lufs: float = Query(default=-9.0, ge=-24.0, le=-4.0),
+):
+    """
+    Runs uploaded audio through a real EQ/compression/limiting DSP chain
+    (see MasteringEngine) and returns the processed WAV. Never returns the
+    raw upload unprocessed -- RULES.md #1.
+    """
+    content = await file.read()
+    try:
+        mastered_bytes, meta = MasteringEngine.master(sample_data=content, target_lufs=target_lufs)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    return Response(
+        content=mastered_bytes,
+        media_type="audio/wav",
+        headers={
+            "X-Loudness-Before-Dbfs": str(meta["loudness_before_dbfs"]),
+            "X-Loudness-After-Dbfs": str(meta["loudness_after_dbfs"]),
+            "X-Target-Lufs": str(meta["target_lufs"]),
+            "X-Mastering-Chain": " | ".join(meta["chain"]),
+        },
+    )
 
 
 @app.get("/api/v1/trends/viral-beats")
