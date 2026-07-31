@@ -29,7 +29,7 @@ AI Producer Platform: DAW/mix-master/autotune bilgisi olmayan sanatçıların ya
 
 ## Agent'lar
 
-`.claude/agents/` altında bu projeye özel 3 subagent var (bu klasör `.gitignore`'da — makineden makineye taşınmaz, repo'yu klonlayan başka biri görmez, gerekirse yeniden oluşturulur):
+`.claude/agents/` altında bu projeye özel 3 subagent var (bilinçli olarak untracked — editörde görünür ama commit edilmez, repo'yu klonlayan başka biri görmez, gerekirse yeniden oluşturulur):
 - **`code-reviewer`** — PR öncesi kod incelemesi, `yasaklar_listesi.md`'ye karşı da kontrol eder.
 - **`bug-hunter`** — audio pipeline / FastAPI endpoint hatalarında root-cause analizi.
 - **`frontend-developer`** — frontend işlerinde zorunlu: `ui-ux-pro-max` skill'i + 21st.dev MCP component/template araçlarını kullanır, jenerik/yarım UI üretmez.
