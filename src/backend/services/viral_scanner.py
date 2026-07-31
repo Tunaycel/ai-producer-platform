@@ -2,13 +2,15 @@
 Viral Scanner Service
 Provides real-time web audio trend scanning and recommended beat copies / inspired proposals.
 """
-from typing import Dict, Any, List
+
+from typing import Any
+
 
 class ViralScannerService:
     """Scans viral trends and generates inspired beat recommendations for artists."""
 
     @staticmethod
-    def get_viral_recommendations(artist_style: str = "Rap / Trap") -> List[Dict[str, Any]]:
+    def get_viral_recommendations(artist_style: str = "Rap / Trap") -> list[dict[str, Any]]:
         """
         Scans viral web music charts (TikTok, Spotify Viral 50, YouTube Trends)
         and returns 3 customized beat recommendations for the artist.
@@ -22,10 +24,10 @@ class ViralScannerService:
                 "platform": "TikTok / Instagram Reels",
                 "bpm": 152,
                 "key": "C# Minor",
-                "style_match": "%96 Tarzına Uygun",
-                "description": "Yüksek synth enerjili, hızlı 808 bas kaymaları olan viral altyapı.",
-                "vocal_recommendation": "Travis Scott tarzı hızlı Autotune + Reverb & Formant Shifter.",
-                "demo_audio_url": "/api/v1/audio/demo/viral-01.mp3"
+                "style_match": "96% Style Match",
+                "description": "High-energy synth lead with fast sliding 808 bass, viral-ready instrumental.",
+                "vocal_recommendation": "Travis Scott-style fast Autotune + Reverb & Formant Shifter.",
+                "demo_audio_url": "/api/v1/audio/demo/viral-01.mp3",
             },
             {
                 "id": "viral-02",
@@ -35,10 +37,10 @@ class ViralScannerService:
                 "platform": "Spotify Viral 50",
                 "bpm": 141,
                 "key": "A Minor",
-                "style_match": "%91 Tarzına Uygun",
-                "description": "Koyu org/piyano akorları ve sert drill 808 slaytları ile yüksek dinamik.",
-                "vocal_recommendation": "Sert autotune + Alt ton pitch kaydırma harmanı.",
-                "demo_audio_url": "/api/v1/audio/demo/viral-02.mp3"
+                "style_match": "91% Style Match",
+                "description": "Dark organ/piano chords with hard drill 808 slides and high dynamic range.",
+                "vocal_recommendation": "Hard autotune blended with a lower-octave pitch shift.",
+                "demo_audio_url": "/api/v1/audio/demo/viral-02.mp3",
             },
             {
                 "id": "viral-03",
@@ -48,9 +50,9 @@ class ViralScannerService:
                 "platform": "YouTube Music Charts",
                 "bpm": 130,
                 "key": "F Minor",
-                "style_match": "%88 Tarzına Uygun",
-                "description": "Eterik vokal sample'ları ve derin sub bas atmosferi.",
-                "vocal_recommendation": "Geniş stereo delay + Yumuşak autotune + De-esser.",
-                "demo_audio_url": "/api/v1/audio/demo/viral-03.mp3"
-            }
+                "style_match": "88% Style Match",
+                "description": "Ethereal vocal samples over a deep sub-bass atmosphere.",
+                "vocal_recommendation": "Wide stereo delay + soft autotune + de-esser.",
+                "demo_audio_url": "/api/v1/audio/demo/viral-03.mp3",
+            },
         ]
