@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Crown, Disc3, Loader2, RotateCw, WifiOff } from "lucide-react"
+import { Crown, Loader2, RotateCw, WifiOff } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { PlansDialog } from "@/components/layout/PlansDialog"
+import { ConsoleVUMeterLazy as ConsoleVUMeter } from "@/components/studio/ConsoleVUMeterLazy"
 import { useHealthCheck } from "@/hooks/useHealthCheck"
 import { cn } from "@/lib/utils"
 import type { AppStrings } from "@/i18n"
@@ -16,30 +17,30 @@ export function Header({ strings: t }: HeaderProps) {
   const [plansOpen, setPlansOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 flex h-[70px] items-center justify-between border-b border-border bg-background/85 px-4 backdrop-blur-md sm:px-8">
+    <header className="sticky top-0 z-40 flex h-[70px] items-center justify-between border-b border-border bg-background/90 px-4 backdrop-blur-md sm:px-8">
       <div className="flex items-center gap-3">
-        <div className="flex size-10 items-center justify-center rounded-md bg-gradient-to-br from-brand-purple to-brand-cyan shadow-[0_0_15px_-2px_var(--brand-purple)]">
-          <Disc3 className="size-5 text-white" aria-hidden />
+        <div className="relative flex size-11 shrink-0 items-center justify-center rounded-full border border-brand-amber/30 bg-[#221c12] shadow-[0_0_18px_-4px_var(--brand-amber)]">
+          <ConsoleVUMeter className="size-9" label={t.brand.vuMeterLabel} />
         </div>
         <div className="flex flex-col leading-tight">
-          <span className="font-heading text-lg font-extrabold tracking-wide bg-gradient-to-r from-white to-brand-purple bg-clip-text text-transparent">
+          <span className="font-heading text-lg font-bold tracking-wide bg-gradient-to-r from-white to-brand-amber bg-clip-text text-transparent">
             {t.brand.name}
           </span>
-          <span className="text-[0.65rem] font-semibold tracking-wide text-brand-cyan">{t.brand.badge}</span>
+          <span className="readout-chip text-[0.65rem] font-medium tracking-widest text-brand-green">{t.brand.badge}</span>
         </div>
       </div>
 
       <div className="flex items-center gap-3">
         <HealthStatusPill strings={t.header} status={health.status} onRetry={health.refresh} />
 
-        <div className="hidden items-center gap-1.5 rounded-full border border-brand-gold/40 bg-brand-gold/15 px-3 py-1.5 text-xs font-semibold text-brand-gold sm:flex">
+        <div className="hidden items-center gap-1.5 rounded-full border border-brand-brass/40 bg-brand-brass/15 px-3 py-1.5 text-xs font-semibold text-brand-brass sm:flex">
           <Crown className="size-3.5" aria-hidden />
           {t.header.tierPro}
         </div>
 
         <Button
           onClick={() => setPlansOpen(true)}
-          className="bg-gradient-to-br from-brand-purple to-brand-purple-strong text-white hover:opacity-90"
+          className="bg-gradient-to-br from-brand-amber to-brand-amber-strong text-[#1a1206] hover:opacity-90"
         >
           {t.header.upgradeCta}
         </Button>

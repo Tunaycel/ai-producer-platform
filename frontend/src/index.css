@@ -2,21 +2,50 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
-@import "@fontsource-variable/outfit";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
 
 @custom-variant dark (&:is(.dark *));
 
 /*
  * AI Producer Platform — brand design tokens.
- * Style: Glassmorphism-on-dark "studio engine" language (confirmed via
- * ui-ux-pro-max --design-system: glassmorphism, dark-mode-first, full a11y
- * support). Palette carried over 1:1 from the legacy src/frontend/app.css
- * brand identity (purple/cyan/gold on near-black) rather than the tool's
- * generic SaaS default, per explicit brand-preservation requirement.
+ *
+ * Direction: "Console" — analog recording-studio hardware, reinterpreted for
+ * a premium modern web product. Explicitly NOT the violet/cyan-glow-on-black
+ * look every AI SaaS product ships (that palette was ripped out entirely,
+ * see git history on this file for the old tokens if you need the diff).
+ *
+ * Reference points: 1970s–90s mixing consoles, tape machines, analog VU
+ * meters, brushed aluminum front panels, warm tungsten backlighting, and the
+ * phosphor green of an oscilloscope/tuner display. Chosen via ui-ux-pro-max
+ * (`--domain color "amber warm vintage hardware analog dark"`,
+ * `--domain typography "technical mechanical monospace industrial precise"`,
+ * `--domain style "skeuomorphic brushed metal hardware texture"`), then
+ * hand-tuned into one coherent system rather than lifted verbatim.
+ *
+ * Color system:
+ *   - Chassis (background/surface): warm near-black graphite, not blue-black.
+ *   - Primary: tungsten amber — the glow of a lit VU meter / tube preamp.
+ *   - Secondary accent: oscilloscope phosphor green — reserved for "live
+ *     signal" / success states, used sparingly like an indicator LED.
+ *   - Brass/gold: a distinct warm metal tone for premium-tier accents
+ *     (Pro badge, crown) — kept separate from amber so it reads as a
+ *     different material, not just a lighter primary.
+ *
+ * Type system: Space Grotesk (headings — geometric, mechanical, reads like
+ * engraved panel labels) + Inter (body — stays legible at small sizes) +
+ * JetBrains Mono (numeric readouts — BPM/key/LUFS/timers get a real
+ * instrument-display treatment via `font-mono` + tabular-nums).
+ *
+ * Texture: skeuomorphic-lite, not glassmorphism. Brushed-metal micro-texture,
+ * layered inset/outer shadows for extruded panel edges, amber backlight
+ * glow on active controls — tactile without tipping into full photoreal
+ * skeuomorphism (which ui-ux-pro-max flags as poor perf/accessibility).
  */
 @theme inline {
     --font-sans: "Inter Variable", sans-serif;
-    --font-heading: "Outfit Variable", sans-serif;
+    --font-heading: "Space Grotesk Variable", sans-serif;
+    --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
 
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -53,11 +82,11 @@
     --color-foreground: var(--foreground);
     --color-background: var(--background);
 
-    /* Brand accent scale — used directly (bg-brand-purple, text-brand-gold, etc). */
-    --color-brand-purple: var(--brand-purple);
-    --color-brand-purple-strong: var(--brand-purple-strong);
-    --color-brand-cyan: var(--brand-cyan);
-    --color-brand-gold: var(--brand-gold);
+    /* Brand accent scale — used directly (bg-brand-amber, text-brand-green, etc). */
+    --color-brand-amber: var(--brand-amber);
+    --color-brand-amber-strong: var(--brand-amber-strong);
+    --color-brand-green: var(--brand-green);
+    --color-brand-brass: var(--brand-brass);
 
     --radius-sm: calc(var(--radius) * 0.5);
     --radius-md: calc(var(--radius) * 0.75);
@@ -72,58 +101,58 @@
    `class="dark"` on <html> in index.html (see AGENT notes in App.tsx). */
 :root,
 .dark {
-    --background: #0a0b10;
-    --foreground: #f3f4f6;
+    --background: #15120d;
+    --foreground: #f1e9dc;
 
-    --card: #12141fbf;
-    --card-foreground: #f3f4f6;
+    --card: #1e1a13bf;
+    --card-foreground: #f1e9dc;
 
-    --popover: #14162280;
-    --popover-foreground: #f3f4f6;
+    --popover: #1c180f80;
+    --popover-foreground: #f1e9dc;
 
-    --primary: #8b5cf6;
-    --primary-foreground: #ffffff;
+    --primary: #e2892b;
+    --primary-foreground: #1a1206;
 
-    --secondary: #171933;
-    --secondary-foreground: #f3f4f6;
+    --secondary: #241f16;
+    --secondary-foreground: #f1e9dc;
 
-    --muted: #171933;
-    --muted-foreground: #9ca3af;
+    --muted: #241f16;
+    --muted-foreground: #a99a85;
 
-    --accent: #8b5cf626;
-    --accent-foreground: #f3f4f6;
+    --accent: #e2892b26;
+    --accent-foreground: #f1e9dc;
 
-    --destructive: #ef4444;
+    --destructive: #e4483f;
     --destructive-foreground: #ffffff;
 
-    --success: #10b981;
-    --success-foreground: #ffffff;
+    --success: #39c98a;
+    --success-foreground: #06231a;
 
-    --border: #8b5cf633;
-    --input: #8b5cf633;
-    --ring: #8b5cf6;
+    --border: #e2892b2e;
+    --input: #e2892b2e;
+    --ring: #e2892b;
 
-    --chart-1: #8b5cf6;
-    --chart-2: #06b6d4;
-    --chart-3: #f59e0b;
-    --chart-4: #10b981;
-    --chart-5: #ef4444;
+    --chart-1: #e2892b;
+    --chart-2: #39c98a;
+    --chart-3: #d4af6a;
+    --chart-4: #e4483f;
+    --chart-5: #8a7256;
 
-    --radius: 1rem;
+    --radius: 0.65rem;
 
-    --sidebar: #0e0f16;
-    --sidebar-foreground: #f3f4f6;
-    --sidebar-primary: #8b5cf6;
-    --sidebar-primary-foreground: #ffffff;
-    --sidebar-accent: #171933;
-    --sidebar-accent-foreground: #f3f4f6;
-    --sidebar-border: #8b5cf633;
-    --sidebar-ring: #8b5cf6;
+    --sidebar: #18140e;
+    --sidebar-foreground: #f1e9dc;
+    --sidebar-primary: #e2892b;
+    --sidebar-primary-foreground: #1a1206;
+    --sidebar-accent: #241f16;
+    --sidebar-accent-foreground: #f1e9dc;
+    --sidebar-border: #e2892b2e;
+    --sidebar-ring: #e2892b;
 
-    --brand-purple: #8b5cf6;
-    --brand-purple-strong: #7c3aed;
-    --brand-cyan: #06b6d4;
-    --brand-gold: #f59e0b;
+    --brand-amber: #e2892b;
+    --brand-amber-strong: #c96a18;
+    --brand-green: #39e28d;
+    --brand-brass: #d4af6a;
 }
 
 @layer base {
@@ -133,8 +162,9 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(at 10% 10%, color-mix(in oklab, var(--brand-purple) 12%, transparent) 0px, transparent 50%),
-      radial-gradient(at 90% 90%, color-mix(in oklab, var(--brand-cyan) 10%, transparent) 0px, transparent 50%);
+      radial-gradient(at 12% 8%, color-mix(in oklab, var(--brand-amber) 10%, transparent) 0px, transparent 55%),
+      radial-gradient(at 88% 92%, color-mix(in oklab, var(--brand-green) 6%, transparent) 0px, transparent 50%),
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 3px);
     background-attachment: fixed;
     min-height: 100dvh;
   }
@@ -144,17 +174,69 @@
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+    letter-spacing: -0.01em;
   }
 }
 
 @layer utilities {
-  /* Glassmorphic studio card: backdrop-blur + soft brand glow, the signature
-     surface treatment carried over from the legacy .card class. */
-  .glass-panel {
-    background: var(--card);
+  /* Console panel: the signature surface treatment — brushed-metal chassis
+     with an extruded (not floating-glass) edge. Replaces the old
+     .glass-panel backdrop-blur look; this product is hardware, not vapor. */
+  .console-panel {
+    background:
+      linear-gradient(160deg, color-mix(in oklab, var(--card) 100%, white 3%) 0%, var(--card) 55%, color-mix(in oklab, var(--card) 100%, black 12%) 100%);
     border: 1px solid var(--border);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    box-shadow:
+      0 1px 0 0 color-mix(in oklab, var(--brand-amber) 12%, transparent) inset,
+      0 -1px 0 0 rgba(0, 0, 0, 0.5) inset,
+      0 12px 32px -12px rgba(0, 0, 0, 0.6);
+    position: relative;
+  }
+  .console-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0.015) 0px,
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  }
+
+  /* Corner rivets — used on the primary studio panels for tactile hardware
+     detail, not on every small card (would read as noise/clutter). */
+  .console-rivets::after {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle, color-mix(in oklab, var(--foreground) 25%, transparent) 0.5px, transparent 1.4px);
+    background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+  }
+
+  /* Digital readout chip: instrument-panel numeric display (BPM, key, LUFS). */
+  .readout-chip {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
