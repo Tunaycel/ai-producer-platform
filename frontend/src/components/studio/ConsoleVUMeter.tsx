@@ -47,7 +47,11 @@ export function ConsoleVUMeter({ analyser, channels = 1, className, label }: Con
     >
       <VUMeterErrorBoundary>
         <Canvas
-          dpr={[1, 2]}
+          // The meter renders small (a 36-72px brand mark / compact readout), so a
+          // higher dpr ceiling than the usual [1,2] is essentially free performance-wise
+          // (still a tiny total pixel count) and meaningfully sharper on high-DPI/retina
+          // displays, where the fine tick marks and needle were visibly soft at dpr=2.
+          dpr={[1, 3]}
           gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
           camera={{ position: [0, 0, 3.4], fov: 30 }}
           frameloop={frameloop}

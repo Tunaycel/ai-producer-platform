@@ -278,4 +278,59 @@ export const en: AppStrings = {
       copyright: "AI Producer Platform. Built for artists who don't have a mix engineer on speed dial.",
     },
   },
+  mastering: {
+    cardTitle: "Vocal Chain & Mastering Console",
+    channelLabel: "CH. 02 · VOCAL FX",
+    cardSubtitle:
+      "Shape the autotune and vocal FX chain before it hits the mix. Every knob is live — the DSP engine that actually processes your vocal through it is still in development.",
+    presetLabel: "Vocal Chain Preset",
+    presets: {
+      rage: {
+        name: "Rage",
+        tagline: "Travis Scott AutoTune — 0ms retune, heavy reverb, stereo delay",
+      },
+      darkTrap: {
+        name: "Dark Trap",
+        tagline: "Natural hard tune, high-pass filter @120Hz, 4:1 compression",
+      },
+      melodicDrill: {
+        name: "Melodic Drill",
+        tagline: "Formant shifter blend, plate reverb, parallel compression",
+      },
+      boomBap: {
+        name: "Boom Bap",
+        tagline: "Warm analog tape saturation, soft retune, de-esser",
+      },
+    },
+    knobRetuneSpeed: "Retune Speed",
+    knobHumanize: "Humanize",
+    knobFormant: "Formant Shift",
+    knobReverb: "Reverb Send",
+    knobHint: "Drag vertically to adjust · Shift-drag for fine control · double-click to reset",
+    toggleHardTune: "Hard Tune Lock",
+    toggleHardTuneHint: "Snaps pitch instantly to the nearest note, no glide between notes.",
+    toggleDeEsser: "De-esser",
+    toggleDeEsserHint: "Tames harsh sibilance ('s'/'t' sounds) in the vocal take.",
+    applyButton: "Apply to Vocal",
+    notLiveNotice: "Not wired to a live audio engine yet — Apply explains what's next.",
+    noVocalHint: "Record a vocal take in the panel above to have something to apply this to.",
+    dialogTitle: "Vocal Chain Processing — Not Live Yet",
+    dialogBodyIntro:
+      "These controls are fully interactive, but nothing here is wired to a real audio-processing service yet. The Demucs → Pedalboard → Matchering mastering pipeline and the RVC-based vocal chain are the next items on the roadmap — we won't fake a processing animation to pretend otherwise.",
+    dialogBodyWithVocal:
+      "You do have a take recorded and ready. Once the pipeline ships, this exact settings sheet is what would run against it — for now nothing has been sent anywhere or processed.",
+    dialogBodyWithoutVocal:
+      "No vocal take recorded yet either — record one from the Live Signal panel whenever you're ready. Either way, no audio is processed by this button today.",
+    dialogSettingsTitle: "Your Dialed-In Settings",
+    dialogClose: "Got it",
+    settingPreset: "Preset",
+    settingRetune: "Retune Speed",
+    settingHumanize: "Humanize",
+    settingFormant: "Formant Shift",
+    settingReverb: "Reverb Send",
+    settingHardTune: "Hard Tune Lock",
+    settingDeEsser: "De-esser",
+    stateOn: "On",
+    stateOff: "Off",
+  },
 }
