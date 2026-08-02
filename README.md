@@ -1,51 +1,128 @@
-# 🎙️ AI Producer Platform - AI-Powered Studio & Producer Platform
+# AI Producer Platform
 
-> **"Professional Rap and Music Production Without Needing to Know a DAW (FL Studio/Ableton), Mixing & Mastering, or Autotune"**
+Vocal-first music production for artists who don't run a DAW: record a vocal, describe what
+you want in plain language, and get back an analysed reference, a proposed vocal chain, and a
+mastered mix.
 
-AI Producer Platform is a next-generation SaaS platform that lets artists and rappers with no music production background (no DAW skills, EQ editing, autotune, or mixing/mastering knowledge) produce studio-quality finished tracks just by recording their vocals and talking to an AI producer in natural language.
-
----
-
-## 🌟 Flagship Modules
-
-### 1. 🎧 Interactive AI Producer Tab (AI Producer Chat & Vocal Studio)
-* **Natural Language Communication:** Understands requests like "Make me a dark 140 BPM trap beat with a Travis Scott-style synth bass."
-* **Vocal Recording & Upload:** The user records or uploads their vocal.
-* **Reference Beat Analysis:** Analyzes a reference song/beat the user likes — extracts key, chord progression, BPM, and drum pattern, without producing unrelated/generic output.
-* **Smart Vocal Processing:** Uses RVC/Kits.ai and autotune/pitch-correction algorithms to lock the artist's vocal into the perfect key.
-
-### 2. 🔥 "Put AI to Work" / Viral Trend Analyzer (AI Action Tab)
-* **Trend Scanning:** Continuously scans the web (TikTok, Spotify Viral 50, YouTube Shorts) to analyze popular and viral beat/song styles.
-* **Smart Recommendation System:** Suggests 2-3 viral-inspired beat variations/original interpretations best matched to the user's vocal tone and style.
-* **One-Click Production:** When a suggested viral beat is selected, the AI automatically mixes it with the user's vocal.
-
-### 3. 🎚️ Top-Tier Producer Quality & AI Fine-Tuning Pipeline
-* **No Generic AI Noise:** Raw output from models like Suno or MusicGen is never used directly.
-* **Mastering Engine:** Studio mastering via a Demucs (stem separation) + Matchering (spectral reference mixing) + Pedalboard (EQ/compression/limiter) chain.
-* **Pro Producer Datasets:** The AI is trained on the mix chains, EQ curves, and stem structures of top producers.
+**Status: working prototype.** The analysis and mastering paths are real DSP, not mock data.
+The vocal-transformation path (stem separation, pitch correction, reference matching) is
+specified but not yet wired up — see [Limitations](#limitations) for exactly where the line
+is. Nothing outside that section is aspirational.
 
 ---
 
-## 💰 Subscription & Monetization Model (SaaS)
+## What actually runs today
 
-| Tier | Features | Target Audience |
-| :--- | :--- | :--- |
-| **Starter (Free / Trial)** | 2 beat generations, standard vocal mix, MP3 download | Newcomers |
-| **Pro Artist (Monthly subscription)** | Unlimited AI Producer chat, viral trend suggestions, autotune + studio mix, WAV download | Active rappers & artists |
-| **Studio Unlimited (Pro + Stems)** | Download all processed stems (drums, vocal, bass, melody as separated WAV), custom vocal training | Professional artists |
+### Reference analysis — `POST /api/v1/audio/analyze-reference`
+
+Extracts musical parameters from an uploaded track using [librosa](https://librosa.org/):
+
+| Parameter | Method |
+|---|---|
+| Tempo (BPM) | Onset-strength beat tracking |
+| Key & scale | Krumhansl–Schmuckler chroma-profile correlation |
+| Spectral balance | STFT band energy (low / low-mid / high-mid / high) |
+
+An earlier build derived these values from a hash of the filename. That placeholder was
+replaced with the real signal path in `a59d392`; the analyser now fails loudly on unreadable
+audio instead of returning a plausible-looking number.
+
+### Mastering chain — `POST /api/v1/audio/master`
+
+A fixed-order effects chain built on [Pedalboard](https://spotify.github.io/pedalboard/),
+Spotify's C++ audio-effects library:
+
+```
+highpass → low shelf → presence peak → compressor → makeup gain → limiter
+```
+
+Operates on the full mix. Per-stem processing needs Demucs, which is not integrated yet.
+
+### Producer chat — `POST /api/v1/producer/chat`
+
+Maps a natural-language request onto concrete production parameters (BPM, key, drum pattern,
+vocal-chain preset) drawn from a shared `GENRE_PRESETS` table, so the chat cannot propose
+settings the engine is unable to apply.
+
+### Viral trend analyser — `GET /api/v1/trends/viral-beats`
+
+Surfaces trending beat characteristics and matches them against the analysed vocal.
 
 ---
 
-## 🔒 Engineering Standards and Forbidden Rules
+## Architecture
 
-The entire development process is governed by the 8 golden rules in [RULES.md](RULES.md):
-1. No low-quality or generic AI output.
-2. No direct commits/pushes to the `main` branch.
-3. No merging without a green PR and GitHub Actions check.
-4. No hardcoded secrets / API keys.
-5. No swallowing errors, no deleting tests.
-6. No unauthorized use of vocal data.
-7. No verbatim copying of copyrighted audio (parametric analysis only).
-8. No spaghetti code.
+```
+src/backend/                    FastAPI · 5 endpoints · ~800 LOC
+  services/audio_analyzer.py      librosa — BPM, key, spectral balance
+  services/mastering_engine.py    Pedalboard — EQ → comp → limiter
+  services/producer_ai.py         NL request → production parameters
+  services/viral_scanner.py       Trend data → vocal matching
+frontend/src/                   React 19 + Vite + TypeScript · ~4,700 LOC
+  components/studio/              Recorder, VU meter, rotary knobs, mastering console
+  components/producer/            Chat panel
+  components/landing/             WebGL hero (@react-three/fiber)
+tests/                          21 pytest cases — API contract + DSP behaviour
+```
 
-See [WORKFLOW_GUIDELINES.md](WORKFLOW_GUIDELINES.md) for the detailed Git workflow, and [ROADMAP.md](ROADMAP.md) for the current backlog.
+Backend services are independent modules with no cross-imports, so the DSP chain can be
+exercised without the API layer and vice versa.
+
+The console UI (VU meters, rotary knobs) is hand-built with CSS transforms and pointer
+physics rather than pulled from a component library — the knobs need continuous drag with a
+configurable taper, which off-the-shelf sliders don't give you.
+
+---
+
+## Running it
+
+```bash
+pip install -r requirements.txt
+uvicorn src.backend.main:app --reload       # http://localhost:8000
+
+cd frontend && npm install && npm run dev   # http://localhost:5173
+```
+
+Tests and checks:
+
+```bash
+pytest tests/ -v
+pytest tests/ --cov=src --cov-report=term-missing
+ruff check . && black --check . && mypy src/
+```
+
+CI runs the suite on Python 3.10 / 3.11 / 3.12 plus ruff, black, isort, mypy, Bandit (SAST),
+pip-audit (dependency CVEs), and secret scanning. `main` is protected — no direct pushes, and
+every check has to pass before a merge.
+
+---
+
+## Limitations
+
+Being explicit, because the gap between these two lists is the honest state of the project.
+
+**Real:**
+
+- BPM / key / spectral analysis (librosa)
+- Full-mix mastering chain (Pedalboard)
+- Browser vocal capture and waveform rendering
+- Genre preset → production-parameter mapping
+
+**Not yet integrated:**
+
+- **Demucs** stem separation, and therefore per-stem mastering
+- **Matchering** spectral reference matching
+- **RVC / pitch correction** — the vocal-chain knobs move preset values but are not bound to
+  a live audio engine
+- No persistence, no auth, no billing. The pricing UI is a design placeholder and charges
+  nothing.
+
+[ROADMAP.md](ROADMAP.md) has the sequenced backlog and the reasoning behind the next DSP
+choices (hybrid F0 detection, BS-RoFormer separation, platform-aware LUFS targets).
+
+---
+
+## Contributing
+
+Branch naming, commit format, and the PR process: [CONTRIBUTING.md](CONTRIBUTING.md).
+Security reports: [SECURITY.md](SECURITY.md).

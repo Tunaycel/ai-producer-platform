@@ -17,42 +17,23 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7
 
-      - name: Set up Python
-        uses: actions/setup-python@v7
-        with:
-          python-version: '3.11'
+      # Linting, typing and the test suite are owned by code-quality.yml and
+      # tests.yml. This job only covers what those two do not: credentials
+      # committed into source, and untracked build artifacts.
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Linting & Audit Dependencies
+      - name: Hardcoded credential scan
         run: |
-          python -m pip install --upgrade pip
-          pip install ruff pytest security-checker || true
-
-      - name: Run Secret / Hardcoded Keys Audit
-        run: |
-          echo "Auditing for hardcoded secrets..."
-          # Simple check to ensure no raw secret keywords exist in source
-          ! grep -rn "sk-" src/ 2>/dev/null || exit 1
-          ! grep -rn "AIzaSy" src/ 2>/dev/null || exit 1
-
-      - name: Code Formatting & Linting Check (Ruff)
-        run: |
-          echo "Running Python Linter..."
-          ruff check . || echo "Ruff check completed with warnings"
-
-      - name: Verify Forbidden Rules File Exists
-        run: |
-          if [ ! -f "RULES.md" ]; then
-            echo "ERROR: RULES.md file missing!"
+          patterns='sk-[A-Za-z0-9]{20,}|AIzaSy[A-Za-z0-9_-]{33}|ghp_[A-Za-z0-9]{36}|xox[baprs]-[A-Za-z0-9-]{10,}|-----BEGIN [A-Z ]*PRIVATE KEY-----'
+          if grep -rEn "$patterns" src/ frontend/src/ tests/; then
+            echo "::error::Hardcoded credential found in source."
             exit 1
           fi
-          echo "RULES.md verified."
+          echo "No hardcoded credentials found."
 
-      - name: Run Unit Tests
+      - name: Reject committed build artifacts
         run: |
-          echo "Running automated test suite..."
-          pytest tests/ 2>/dev/null || echo "No tests directory yet - initial setup phase pass."
+          if git ls-files | grep -Ev '^\.env\.example$' | grep -E '(^|/)(\.coverage|\.env|coverage\.xml|.*\.zip|.*\.tar\.gz)$'; then
+            echo "::error::Build artifact or environment file is tracked in git."
+            exit 1
+          fi
+          echo "No tracked build artifacts."
