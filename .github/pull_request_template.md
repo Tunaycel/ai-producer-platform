@@ -1,18 +1,18 @@
-## 📋 PR Summary
+## PR Summary
 <!-- Briefly describe the purpose of this PR and what it changes -->
 
 Fixes # (issue number)
 
-## 🔄 Change Type
-- [ ] 🐛 Bug Fix
-- [ ] ✨ New Feature
-- [ ] 🎨 Code Refactor
-- [ ] 📝 Documentation Update
-- [ ] 🔒 Security Fix
-- [ ] 🚀 Performance Improvement
-- [ ] ⚙️ CI/CD Update
+## Change Type
+- [ ] Bug Fix
+- [ ] New Feature
+- [ ] Code Refactor
+- [ ] Documentation Update
+- [ ] Security Fix
+- [ ] Performance Improvement
+- [ ] CI/CD Update
 
-## 🧪 Test Steps
+## Test Steps
 <!-- How did you test these changes? -->
 
 1.
@@ -26,6 +26,6 @@ Fixes # (issue number)
 - [ ] Errors are surfaced, not swallowed
 - [ ] CI is green
 
-## 📸 Screenshot (if UI change)
+## Screenshot (if UI change)
 
-## 📌 Additional Notes
+## Additional Notes

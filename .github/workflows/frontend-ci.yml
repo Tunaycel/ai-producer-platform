@@ -1,4 +1,4 @@
-name: 🖥️ Frontend CI (React)
+name: Frontend CI (React)
 
 on:
   push:

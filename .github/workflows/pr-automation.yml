@@ -1,4 +1,4 @@
-name: 🤖 PR Auto Labeler & Stale Issue Cleanup
+name: PR Auto Labeler & Stale Issue Cleanup
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   auto-label:
-    name: 🏷️ Automatically Label Pull Requests
+    name: Automatically Label Pull Requests
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -18,7 +18,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   stale-issues:
-    name: 🧹 Mark & Close Stale Issues/PRs
+    name: Mark & Close Stale Issues/PRs
     runs-on: ubuntu-latest
     permissions:
       issues: write

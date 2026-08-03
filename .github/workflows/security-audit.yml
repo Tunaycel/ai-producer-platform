@@ -1,4 +1,4 @@
-name: 🔒 Security & Dependency Audit (SAST)
+name: Security & Dependency Audit (SAST)
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
 
 jobs:
   secret-scan:
-    name: 🔑 Secret & Credentials Leak Detection
+    name: Secret & Credentials Leak Detection
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -28,7 +28,7 @@ jobs:
           extra_args: --debug --only-verified
 
   sast-scan:
-    name: 🛡️ Static Application Security Testing (Bandit)
+    name: Static Application Security Testing (Bandit)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -53,7 +53,7 @@ jobs:
           path: bandit-report.json
 
   dependency-audit:
-    name: 📦 Dependency Vulnerability Check (pip-audit)
+    name: Dependency Vulnerability Check (pip-audit)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

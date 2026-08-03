@@ -1,4 +1,4 @@
-name: 🐳 Docker Build & Container Registry Push
+name: Docker Build & Container Registry Push
 
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
             echo "exists=true" >> $GITHUB_OUTPUT
           else
             echo "exists=false" >> $GITHUB_OUTPUT
-            echo "⚠️ Dockerfile not found — skipping Docker build"
+            echo "Dockerfile not found — skipping Docker build"
           fi
 
       - name: Build and Push Docker Image
