@@ -1,4 +1,4 @@
-name: 🧪 Unit & Integration Test Suite
+name: Unit & Integration Test Suite
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: 📝 Code Quality & Style Enforcement
+name: Code Quality & Style Enforcement
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   lint-format:
-    name: 🎨 Linting, Formatting & Type Checking
+    name: Linting, Formatting & Type Checking
     runs-on: ubuntu-latest
 
     steps:
@@ -46,11 +46,11 @@ jobs:
         run: |
           mypy src/ --ignore-missing-imports --no-strict-optional || true
 
-      - name: ✅ Code Quality Summary
+      - name: Code Quality Summary
         run: echo "Code quality checks completed. Fix any warnings above in follow-up PRs."
 
   frontend-lint:
-    name: 🌐 Frontend File Integrity Check
+    name: Frontend File Integrity Check
     runs-on: ubuntu-latest
 
     steps:
@@ -58,7 +58,7 @@ jobs:
 
       - name: Verify Frontend Files Exist
         run: |
-          [ -f src/frontend/index.html ] && echo "✅ index.html found" || (echo "❌ index.html missing" && exit 1)
-          [ -f src/frontend/app.css ] && echo "✅ app.css found" || (echo "❌ app.css missing" && exit 1)
-          [ -f src/frontend/app.js ] && echo "✅ app.js found" || (echo "❌ app.js missing" && exit 1)
+          [ -f src/frontend/index.html ] && echo "index.html found" || (echo "index.html missing" && exit 1)
+          [ -f src/frontend/app.css ] && echo "app.css found" || (echo "app.css missing" && exit 1)
+          [ -f src/frontend/app.js ] && echo "app.js found" || (echo "app.js missing" && exit 1)
 

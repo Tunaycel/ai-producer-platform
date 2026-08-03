@@ -1,13 +1,13 @@
 # Security Policy
 
-## 🔒 Supported Versions
+## Supported Versions
 
 | Version | Supported |
 | :------ | :-------- |
-| 1.x     | ✅ Active support |
-| < 1.0   | ❌ Not supported |
+| 1.x     | Active support |
+| < 1.0   | Not supported |
 
-## 🚨 Reporting a Vulnerability
+## Reporting a Vulnerability
 
 **Please never open a public Issue for a security vulnerability!**
 

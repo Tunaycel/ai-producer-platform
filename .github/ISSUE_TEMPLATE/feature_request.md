@@ -1,12 +1,12 @@
 ---
-name: ✨ Feature Request
+name: Feature Request
 about: Suggest a new feature or improvement for the platform
 title: '[FEATURE] '
 labels: ['enhancement']
 assignees: ''
 ---
 
-## 🚀 Feature Request
+## Feature Request
 
 ### Problem / Need
 <!-- What problem does this solve? What value does it add for the user? -->

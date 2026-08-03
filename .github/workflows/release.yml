@@ -1,4 +1,4 @@
-name: 🚀 Release & Semantic Versioning
+name: Release & Semantic Versioning
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   release:
-    name: 📦 Semantic Release — Auto Version & Changelog
+    name: Semantic Release — Auto Version & Changelog
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
