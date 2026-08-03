@@ -1,5 +1,0 @@
-# Her PR için varsayılan reviewer.
-# Proje büyüyüp yeni katkıda bulunanlar eklendiğinde alan bazlı satırlar eklenebilir
-# (örn. `/src/frontend/ @frontend-takimi`, `/src/backend/services/ @audio-dsp-takimi`).
-
-* @Tunaycel

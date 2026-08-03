@@ -1,6 +1,6 @@
 # Roadmap
 
-Working backlog for AI Producer Platform, sequenced by dependency order. Each item ships as its own branch → PR → green CI → merge (see [WORKFLOW_GUIDELINES.md](WORKFLOW_GUIDELINES.md)).
+Working backlog for AI Producer Platform, sequenced by dependency order. Each item ships as its own branch → PR → green CI → merge (see [CONTRIBUTING.md](CONTRIBUTING.md)).
 
 ## In progress
 
@@ -9,7 +9,7 @@ Working backlog for AI Producer Platform, sequenced by dependency order. Each it
 ## Recently shipped — what we used and why
 
 - **Real audio analysis** (`audio_analyzer.py`): replaced filename-hash fake output with `librosa` — real BPM via beat tracking, real key/scale via Krumhansl-Schmuckler chroma correlation, real spectral-balance via STFT. *Why librosa:* the standard, well-tested Python audio-analysis library; no need for a heavier ML model for tempo/key extraction.
-- **Real mastering DSP** (`mastering_engine.py`, `POST /api/v1/audio/master`): a genuine EQ (highpass + shelving + presence peak) → compressor → makeup gain → limiter chain via **Pedalboard** (Spotify's audio-effects library). *Why Pedalboard over hand-rolled DSP:* battle-tested, fast (C++ under the hood), and exactly the tool RULES.md's mastering requirement was written around. This is stage one of item 2 below — stem separation (Demucs) and spectral reference matching (Matchering) are not yet integrated, so this chain masters the full mix, not per-stem.
+- **Real mastering DSP** (`mastering_engine.py`, `POST /api/v1/audio/master`): a genuine EQ (highpass + shelving + presence peak) → compressor → makeup gain → limiter chain via **Pedalboard** (Spotify's audio-effects library). *Why Pedalboard over hand-rolled DSP:* battle-tested, fast (C++ under the hood), and it covers the whole EQ/dynamics/limiting chain in one dependency. This is stage one of item 2 below — stem separation (Demucs) and spectral reference matching (Matchering) are not yet integrated, so this chain masters the full mix, not per-stem.
 - **Vocal Chain & Mastering Console** (frontend): real draggable rotary knobs (`ConsoleKnob`, CSS-transform + pointer physics, no dependency) for retune speed/humanize/formant/reverb, wired to the same `GENRE_PRESETS` vocal chains the chat already proposes. *Why hand-built over a library:* full control over the Console look/feel and zero new dependencies; honestly labeled as not-yet-connected to a live audio engine (that's item 3 below).
 - **Landing page**: hero (real `@react-three/fiber` WebGL scene reusing `ConsoleVUMeter`'s material language), the 3 modules as feature sections, pricing (same data/component as the in-app `PlansDialog`, can't drift), honest footer. *Why now:* first-time visitors were dropped straight into an empty app shell with no context — this was the biggest "feels unfinished" gap.
 

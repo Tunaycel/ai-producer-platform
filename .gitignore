@@ -25,3 +25,9 @@ temp_stems/
 # Claude Code local session state (not the agents folder — that stays untracked
 # but visible in the editor; only add specific noisy files here as needed)
 .claude/scheduled_tasks.lock
+
+# Coverage artifacts
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml

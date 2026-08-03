@@ -1,14 +1,14 @@
-# 🤝 Contributing Guide
+# Contributing
 
-Thanks for wanting to contribute to AI Producer Platform! This guide exists to make the process clear.
+How to work in this repo.
 
-## 🚦 Before You Start
+## Before you start
 
 1. Check existing **Issues** — someone may have already opened the same one.
 2. For large changes, open an **Issue** first and discuss it.
 3. **Fork** the repo and work from your own branch.
 
-## 🌿 Branch Strategy
+## Branches
 
 ```
 feature/  → New features
@@ -19,7 +19,7 @@ perf/     → Performance improvements
 ci/       → CI/CD changes
 ```
 
-## 📝 Commit Message Standards (Conventional Commits)
+## Commit messages (Conventional Commits)
 
 ```
 feat:     New feature
@@ -32,17 +32,16 @@ test:     Adding missing tests or correcting existing tests
 chore:    Changes to the build process or auxiliary tools
 ```
 
-## 🔁 PR Process
+## Pull requests
 
 1. Create a branch from an up-to-date `main`.
 2. Make your changes.
 3. Make sure all tests pass: `pytest tests/ -v`
 4. Open a PR — fill out the PR template completely.
 5. Wait until all CI/CD checks are green.
-6. Get at least **1 reviewer approval**.
-7. Squash-merge into `main`.
+6. Squash-merge into `main`.
 
-## 🧪 Running Tests
+## Running tests
 
 ```bash
 # All tests
@@ -55,13 +54,13 @@ pytest tests/ --cov=src --cov-report=term-missing
 pytest tests/test_audio_engine.py -v
 ```
 
-## 📦 Installing Dependencies
+## Installing dependencies
 
 ```bash
 pip install -r requirements.txt
 pip install -r requirements-dev.txt  # dev tools
 ```
 
-## ❓ Need Help?
+## Questions
 
-Post in Issues or use Discussions.
+Open an issue.
